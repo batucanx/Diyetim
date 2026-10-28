@@ -1,0 +1,8 @@
+/* Nunito (SIL OFL 1.1, bkz. fonts/OFL.txt) — değişken font, latin + latin-ext alt kümesi. */
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/NunitoVariable.woff2") format("woff2");
+  font-weight: 200 1000;
+  font-style: normal;
+  font-display: swap;
+}

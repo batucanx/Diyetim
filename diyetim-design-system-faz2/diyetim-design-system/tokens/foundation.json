@@ -1,0 +1,660 @@
+{
+  "font": {
+    "family": {
+      "primary": {
+        "$type": "fontFamily",
+        "$value": [
+          "Nunito",
+          "system-ui",
+          "sans-serif"
+        ]
+      }
+    },
+    "weight": {
+      "regular": {
+        "$type": "fontWeight",
+        "$value": 400
+      },
+      "medium": {
+        "$type": "fontWeight",
+        "$value": 500
+      },
+      "semibold": {
+        "$type": "fontWeight",
+        "$value": 600
+      },
+      "bold": {
+        "$type": "fontWeight",
+        "$value": 700
+      },
+      "extrabold": {
+        "$type": "fontWeight",
+        "$value": 800
+      }
+    },
+    "feature": {
+      "tabular": {
+        "$type": "string",
+        "$value": "tnum",
+        "$description": "numeric-* stilleri için zorunlu"
+      }
+    }
+  },
+  "line-height": {
+    "tight": {
+      "$type": "number",
+      "$value": 1.15
+    },
+    "normal": {
+      "$type": "number",
+      "$value": 1.4
+    },
+    "relaxed": {
+      "$type": "number",
+      "$value": 1.6
+    }
+  },
+  "letter-spacing": {
+    "tight": {
+      "$type": "dimension",
+      "$value": "-0.02em",
+      "$description": "display ve numeric-xl"
+    },
+    "normal": {
+      "$type": "dimension",
+      "$value": "0em"
+    },
+    "wide": {
+      "$type": "dimension",
+      "$value": "0.01em",
+      "$description": "label"
+    }
+  },
+  "typography": {
+    "$description": "Değerler: [mobil, masaüstü]. Breakpoint 'expanded' ve üstünde masaüstü değeri kullanılır.",
+    "display": {
+      "$type": "typography",
+      "$value": {
+        "fontSize": [
+          "34px",
+          "40px"
+        ],
+        "lineHeight": [
+          "40px",
+          "48px"
+        ],
+        "fontWeight": 800,
+        "letterSpacing": "{letter-spacing.tight}"
+      }
+    },
+    "h1": {
+      "$type": "typography",
+      "$value": {
+        "fontSize": [
+          "28px",
+          "32px"
+        ],
+        "lineHeight": [
+          "34px",
+          "40px"
+        ],
+        "fontWeight": 700,
+        "letterSpacing": "{letter-spacing.tight}"
+      }
+    },
+    "h2": {
+      "$type": "typography",
+      "$value": {
+        "fontSize": [
+          "22px",
+          "24px"
+        ],
+        "lineHeight": [
+          "28px",
+          "32px"
+        ],
+        "fontWeight": 700
+      }
+    },
+    "h3": {
+      "$type": "typography",
+      "$value": {
+        "fontSize": [
+          "18px",
+          "20px"
+        ],
+        "lineHeight": [
+          "24px",
+          "28px"
+        ],
+        "fontWeight": 600
+      }
+    },
+    "h4": {
+      "$type": "typography",
+      "$value": {
+        "fontSize": [
+          "16px",
+          "17px"
+        ],
+        "lineHeight": [
+          "22px",
+          "24px"
+        ],
+        "fontWeight": 600
+      }
+    },
+    "body-lg": {
+      "$type": "typography",
+      "$value": {
+        "fontSize": [
+          "17px",
+          "17px"
+        ],
+        "lineHeight": [
+          "26px",
+          "26px"
+        ],
+        "fontWeight": 400
+      }
+    },
+    "body": {
+      "$type": "typography",
+      "$value": {
+        "fontSize": [
+          "16px",
+          "15px"
+        ],
+        "lineHeight": [
+          "24px",
+          "22px"
+        ],
+        "fontWeight": 400
+      }
+    },
+    "body-sm": {
+      "$type": "typography",
+      "$value": {
+        "fontSize": [
+          "14px",
+          "14px"
+        ],
+        "lineHeight": [
+          "20px",
+          "20px"
+        ],
+        "fontWeight": 400
+      }
+    },
+    "caption": {
+      "$type": "typography",
+      "$value": {
+        "fontSize": [
+          "12px",
+          "12px"
+        ],
+        "lineHeight": [
+          "16px",
+          "16px"
+        ],
+        "fontWeight": 500
+      }
+    },
+    "label": {
+      "$type": "typography",
+      "$value": {
+        "fontSize": [
+          "13px",
+          "13px"
+        ],
+        "lineHeight": [
+          "16px",
+          "16px"
+        ],
+        "fontWeight": 600,
+        "letterSpacing": "{letter-spacing.wide}"
+      }
+    },
+    "numeric-xl": {
+      "$type": "typography",
+      "$value": {
+        "fontSize": [
+          "44px",
+          "48px"
+        ],
+        "lineHeight": [
+          "48px",
+          "52px"
+        ],
+        "fontWeight": 800,
+        "letterSpacing": "{letter-spacing.tight}",
+        "fontFeature": "{font.feature.tabular}"
+      }
+    },
+    "numeric-lg": {
+      "$type": "typography",
+      "$value": {
+        "fontSize": [
+          "28px",
+          "28px"
+        ],
+        "lineHeight": [
+          "32px",
+          "32px"
+        ],
+        "fontWeight": 700,
+        "fontFeature": "{font.feature.tabular}"
+      }
+    },
+    "numeric-sm": {
+      "$type": "typography",
+      "$value": {
+        "fontSize": [
+          "15px",
+          "14px"
+        ],
+        "lineHeight": [
+          "20px",
+          "20px"
+        ],
+        "fontWeight": 600,
+        "fontFeature": "{font.feature.tabular}"
+      }
+    }
+  },
+  "spacing": {
+    "0": {
+      "$type": "dimension",
+      "$value": "0px"
+    },
+    "2xs": {
+      "$type": "dimension",
+      "$value": "2px"
+    },
+    "xs": {
+      "$type": "dimension",
+      "$value": "4px"
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": "8px"
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": "12px"
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "20px"
+    },
+    "2xl": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "3xl": {
+      "$type": "dimension",
+      "$value": "32px"
+    },
+    "4xl": {
+      "$type": "dimension",
+      "$value": "40px"
+    },
+    "5xl": {
+      "$type": "dimension",
+      "$value": "48px"
+    },
+    "6xl": {
+      "$type": "dimension",
+      "$value": "64px"
+    },
+    "7xl": {
+      "$type": "dimension",
+      "$value": "80px"
+    },
+    "8xl": {
+      "$type": "dimension",
+      "$value": "96px"
+    }
+  },
+  "layout": {
+    "margin": {
+      "compact": {
+        "$type": "dimension",
+        "$value": "{spacing.xl}"
+      },
+      "medium": {
+        "$type": "dimension",
+        "$value": "{spacing.2xl}"
+      },
+      "expanded": {
+        "$type": "dimension",
+        "$value": "{spacing.3xl}"
+      }
+    },
+    "gutter": {
+      "compact": {
+        "$type": "dimension",
+        "$value": "{spacing.md}"
+      },
+      "medium": {
+        "$type": "dimension",
+        "$value": "{spacing.2xl}"
+      },
+      "expanded": {
+        "$type": "dimension",
+        "$value": "{spacing.2xl}"
+      }
+    },
+    "columns": {
+      "compact": {
+        "$type": "number",
+        "$value": 4
+      },
+      "medium": {
+        "$type": "number",
+        "$value": 8
+      },
+      "expanded": {
+        "$type": "number",
+        "$value": 12
+      }
+    },
+    "stack-tight": {
+      "$type": "dimension",
+      "$value": "{spacing.sm}"
+    },
+    "stack-default": {
+      "$type": "dimension",
+      "$value": "{spacing.lg}"
+    },
+    "stack-section": {
+      "$type": "dimension",
+      "$value": "{spacing.3xl}"
+    },
+    "icon-gap": {
+      "$type": "dimension",
+      "$value": "{spacing.sm}"
+    }
+  },
+  "radius": {
+    "xs": {
+      "$type": "dimension",
+      "$value": "4px"
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": "8px"
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": "12px"
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "18px"
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "24px"
+    },
+    "2xl": {
+      "$type": "dimension",
+      "$value": "32px"
+    },
+    "full": {
+      "$type": "dimension",
+      "$value": "9999px"
+    }
+  },
+  "border": {
+    "width-hairline": {
+      "$type": "dimension",
+      "$value": "1px"
+    },
+    "width-strong": {
+      "$type": "dimension",
+      "$value": "1.5px"
+    },
+    "focus-width": {
+      "$type": "dimension",
+      "$value": "2px"
+    },
+    "focus-offset": {
+      "$type": "dimension",
+      "$value": "2px"
+    }
+  },
+  "opacity": {
+    "disabled": {
+      "$type": "number",
+      "$value": 0.38
+    },
+    "hover-overlay": {
+      "$type": "number",
+      "$value": 0.06
+    },
+    "pressed-overlay": {
+      "$type": "number",
+      "$value": 0.1
+    },
+    "scrim-light": {
+      "$type": "number",
+      "$value": 0.48
+    },
+    "scrim-dark": {
+      "$type": "number",
+      "$value": 0.64
+    }
+  },
+  "motion": {
+    "duration": {
+      "instant": {
+        "$type": "duration",
+        "$value": "80ms"
+      },
+      "fast": {
+        "$type": "duration",
+        "$value": "150ms"
+      },
+      "normal": {
+        "$type": "duration",
+        "$value": "240ms"
+      },
+      "slow": {
+        "$type": "duration",
+        "$value": "360ms"
+      },
+      "deliberate": {
+        "$type": "duration",
+        "$value": "600ms",
+        "$description": "Halka dolumu, grafik girişi"
+      }
+    },
+    "ease": {
+      "standard": {
+        "$type": "cubicBezier",
+        "$value": [
+          0.2,
+          0,
+          0,
+          1
+        ]
+      },
+      "emphasized": {
+        "$type": "cubicBezier",
+        "$value": [
+          0.3,
+          0,
+          0,
+          1
+        ]
+      },
+      "enter": {
+        "$type": "cubicBezier",
+        "$value": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "exit": {
+        "$type": "cubicBezier",
+        "$value": [
+          0.3,
+          0,
+          1,
+          1
+        ]
+      }
+    },
+    "spring": {
+      "gentle": {
+        "$type": "object",
+        "$value": {
+          "stiffness": 260,
+          "damping": 30,
+          "mass": 1
+        },
+        "$description": "Bottom sheet, sürükleme"
+      }
+    }
+  },
+  "breakpoint": {
+    "compact": {
+      "$type": "dimension",
+      "$value": "0px"
+    },
+    "medium": {
+      "$type": "dimension",
+      "$value": "600px"
+    },
+    "expanded": {
+      "$type": "dimension",
+      "$value": "1024px"
+    },
+    "large": {
+      "$type": "dimension",
+      "$value": "1440px"
+    }
+  },
+  "z-index": {
+    "base": {
+      "$type": "number",
+      "$value": 0
+    },
+    "sticky": {
+      "$type": "number",
+      "$value": 100
+    },
+    "dropdown": {
+      "$type": "number",
+      "$value": 200
+    },
+    "overlay": {
+      "$type": "number",
+      "$value": 300
+    },
+    "sheet": {
+      "$type": "number",
+      "$value": 400
+    },
+    "modal": {
+      "$type": "number",
+      "$value": 500
+    },
+    "toast": {
+      "$type": "number",
+      "$value": 600
+    },
+    "tooltip": {
+      "$type": "number",
+      "$value": 700
+    }
+  },
+  "icon": {
+    "size": {
+      "sm": {
+        "$type": "dimension",
+        "$value": "16px"
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "20px"
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "32px"
+      }
+    },
+    "stroke": {
+      "$type": "number",
+      "$value": 1.75
+    }
+  },
+  "target": {
+    "min": {
+      "$type": "dimension",
+      "$value": "44px"
+    },
+    "comfortable": {
+      "$type": "dimension",
+      "$value": "48px"
+    }
+  },
+  "size": {
+    "target-min": {
+      "$type": "dimension",
+      "$value": "44px"
+    },
+    "target-comfortable": {
+      "$type": "dimension",
+      "$value": "48px"
+    },
+    "control-sm": {
+      "$type": "dimension",
+      "$value": "36px"
+    },
+    "control-md": {
+      "$type": "dimension",
+      "$value": "44px"
+    },
+    "control-lg": {
+      "$type": "dimension",
+      "$value": "52px"
+    },
+    "fab": {
+      "$type": "dimension",
+      "$value": "56px"
+    },
+    "nav-bottom": {
+      "$type": "dimension",
+      "$value": "64px"
+    },
+    "app-bar": {
+      "$type": "dimension",
+      "$value": "56px"
+    },
+    "sidebar": {
+      "$type": "dimension",
+      "$value": "264px"
+    },
+    "sidebar-rail": {
+      "$type": "dimension",
+      "$value": "72px"
+    },
+    "content-max": {
+      "$type": "dimension",
+      "$value": "1440px"
+    }
+  },
+  "$description": "Diyetim foundation token'ları. typography değerleri [mobil, masaüstü]; masaüstü değeri breakpoint 'expanded' ve üstünde geçerlidir."
+}

@@ -1,0 +1,16 @@
+{
+  "name": "diyetim-design-system",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.18.0",
+  "scripts": {
+    "tokens:build": "node tools/tokens/build.mjs",
+    "tokens:check": "node tools/tokens/build.mjs --check",
+    "fonts:verify": "python3 tools/fonts/verify_nunito.py packages/flutter/dy_tokens/fonts/Nunito-Regular.ttf",
+    "test:tokens": "node --test tools/tokens/test/*.test.mjs",
+    "test:web": "pnpm --filter @diyetim/ui test",
+    "test:visual": "pnpm --filter @diyetim/catalog test:visual",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm tokens:check && pnpm test:tokens && pnpm typecheck && pnpm test:web"
+  }
+}

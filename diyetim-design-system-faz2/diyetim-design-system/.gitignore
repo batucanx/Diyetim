@@ -1,0 +1,8 @@
+node_modules/
+dist/
+coverage/
+.dart_tool/
+build/
+*.log
+packages/web/catalog/test-results/
+packages/web/catalog/playwright-report/

@@ -1,0 +1,34 @@
+[
+  {
+    "check": "Bölünmez boşluk U+00A0 (sayı ile birim arası)",
+    "ok": true,
+    "detail": "var"
+  },
+  {
+    "check": "Bilgi: dar bölünmez boşluk U+202F",
+    "ok": true,
+    "info": true,
+    "detail": "YOK — DyNumber U+202F üretmemeli, yalnızca U+00A0 kullanır"
+  },
+  {
+    "check": "Türkçe karakterler (ç ğ ı İ ö ş ü, şapkalı ünlüler)",
+    "ok": true,
+    "detail": "18 karakterin tümü var"
+  },
+  {
+    "check": "Bilgi: OpenType 'tnum' özelliği",
+    "ok": true,
+    "info": true,
+    "detail": "YOK — tabular davranış varsayılan rakam genişliklerine dayanır; GSUB: aalt, calt, case, ccmp, dnom, frac, liga, locl, numr, onum, ordn, salt, sinf, ss01, ss02, subs, sups"
+  },
+  {
+    "check": "Varsayılan rakamlar her ağırlıkta eşit genişlik (400–800)",
+    "ok": true,
+    "detail": "400: [600], 500: [600], 600: [600], 700: [600], 800: [600]"
+  },
+  {
+    "check": "Ağırlık ekseni 400–800'ü kapsıyor",
+    "ok": true,
+    "detail": "wght: (200.0, 1000.0)"
+  }
+]

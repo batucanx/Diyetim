@@ -1,0 +1,44 @@
+{
+  "$description": "Flutter ve React arasında ortak durum sözleşmeleri. tools/tokens/build.mjs bu dosyadan TypeScript ve Dart enum'ları üretir; değer adları iki platformda birebir aynıdır.",
+  "enums": {
+    "ComponentState": {
+      "doc": "Etkileşimli component'lerin görsel durumu. disabled ve locked farklıdır: locked diyetisyenin tercihidir ve nedenini gösterir.",
+      "values": ["enabled", "disabled", "locked", "loading"]
+    },
+    "ValidationState": {
+      "doc": "Form alanının doğrulama sonucu. loading ile birlikte kullanılmaz; yükleme ComponentState'tedir.",
+      "values": ["none", "error", "success"]
+    },
+    "ButtonVariant": { "doc": "Buton hiyerarşisi.", "values": ["primary", "secondary", "tertiary", "ghost", "destructive"] },
+    "ButtonSize": { "doc": "sm yalnızca panel tablolarında.", "values": ["sm", "md", "lg"] },
+    "TextStyleToken": {
+      "doc": "Tipografi stilleri; foundation.json typography ile aynı.",
+      "values": ["display", "h1", "h2", "h3", "h4", "body-lg", "body", "body-sm", "caption", "label", "numeric-xl", "numeric-lg", "numeric-sm"]
+    },
+    "TextTone": { "doc": "Metin rengi semantiği.", "values": ["primary", "secondary", "muted", "disabled", "on-primary", "link", "error", "success"] },
+    "SurfaceLevel": { "doc": "Yüzey katmanı.", "values": ["background", "surface", "elevated", "secondary", "sunken", "inverse"] },
+    "Elevation": { "doc": "Derinlik.", "values": ["none", "low", "medium", "high", "modal"] },
+    "MealStatus": {
+      "doc": "Öğün durumu (Faz 3 component'leri kullanır).",
+      "values": ["planned", "logged", "pending-review", "approved", "needs-correction", "entered-by-dietitian", "skipped", "cheat"]
+    },
+    "DataSource": { "doc": "Verinin kaynağı (SourceTag).", "values": ["patient", "dietitian", "ai", "verified"] },
+    "AppointmentStatus": { "doc": "Randevu durumu.", "values": ["available", "pending", "confirmed", "completed", "cancelled", "no-show", "rescheduling"] },
+    "LabValueStatus": { "doc": "Tahlil değeri durumu.", "values": ["normal", "low", "high", "supplement", "uncertain", "unreadable", "corrected"] },
+    "Visibility": { "doc": "Danışana gösterilen metrik. hidden değer API'den hiç gelmez.", "values": ["visible", "hidden"] }
+  },
+  "contrastPairs": [
+    ["text-primary", "background", 4.5], ["text-primary", "surface", 4.5], ["text-primary", "surface-elevated", 4.5], ["text-primary", "surface-secondary", 4.5],
+    ["text-secondary", "surface", 4.5], ["text-secondary", "surface-secondary", 4.5], ["text-secondary", "background", 4.5],
+    ["text-muted", "surface", 4.5], ["text-muted", "background", 4.5], ["text-muted", "surface-secondary", 4.5],
+    ["text-link", "surface", 4.5], ["text-on-primary", "primary", 4.5], ["text-on-primary", "primary-hover", 4.5], ["text-on-primary", "error", 4.5],
+    ["text-on-inverse", "surface-inverse", 4.5], ["on-primary-subtle", "primary-subtle", 4.5],
+    ["success-strong", "success-subtle", 4.5], ["warning-strong", "warning-subtle", 4.5], ["error-strong", "error-subtle", 4.5], ["info-strong", "info-subtle", 4.5],
+    ["error-strong", "surface", 4.5], ["text-secondary", "surface-sunken", 4.5],
+    ["primary", "surface", 3.0], ["focus-ring", "surface", 3.0], ["focus-ring", "background", 3.0], ["focus-ring", "surface-secondary", 3.0],
+    ["border-strong", "surface", 3.0], ["border-strong", "background", 3.0],
+    ["success", "surface", 3.0], ["warning", "surface", 3.0], ["error", "surface", 3.0], ["info", "surface", 3.0],
+    ["macro-carb", "surface", 3.0], ["macro-protein", "surface", 3.0], ["macro-fat", "surface", 3.0], ["macro-fiber", "surface", 3.0],
+    ["nutrition-calorie", "surface", 3.0]
+  ]
+}

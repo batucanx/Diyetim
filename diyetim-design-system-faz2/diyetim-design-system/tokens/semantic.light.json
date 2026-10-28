@@ -1,0 +1,276 @@
+{
+  "color": {
+    "background": {
+      "$type": "color",
+      "$value": "{color.stone.25}"
+    },
+    "surface": {
+      "$type": "color",
+      "$value": "{color.stone.0}"
+    },
+    "surface-elevated": {
+      "$type": "color",
+      "$value": "{color.stone.0}"
+    },
+    "surface-secondary": {
+      "$type": "color",
+      "$value": "{color.stone.50}"
+    },
+    "surface-sunken": {
+      "$type": "color",
+      "$value": "{color.stone.100}"
+    },
+    "surface-inverse": {
+      "$type": "color",
+      "$value": "{color.ink.900}"
+    },
+    "text-primary": {
+      "$type": "color",
+      "$value": "{color.stone.950}"
+    },
+    "text-secondary": {
+      "$type": "color",
+      "$value": "{color.stone.700}"
+    },
+    "text-muted": {
+      "$type": "color",
+      "$value": "{color.stone.600}"
+    },
+    "text-disabled": {
+      "$type": "color",
+      "$value": "{color.stone.400}"
+    },
+    "text-on-primary": {
+      "$type": "color",
+      "$value": "{color.stone.0}"
+    },
+    "text-on-inverse": {
+      "$type": "color",
+      "$value": "{color.stone.0}"
+    },
+    "text-link": {
+      "$type": "color",
+      "$value": "{color.pine.700}"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "{color.stone.200}"
+    },
+    "border-subtle": {
+      "$type": "color",
+      "$value": "{color.stone.100}"
+    },
+    "border-strong": {
+      "$type": "color",
+      "$value": "{color.stone.500}"
+    },
+    "focus-ring": {
+      "$type": "color",
+      "$value": "{color.pine.600}"
+    },
+    "primary": {
+      "$type": "color",
+      "$value": "{color.pine.600}"
+    },
+    "primary-hover": {
+      "$type": "color",
+      "$value": "{color.pine.700}"
+    },
+    "primary-active": {
+      "$type": "color",
+      "$value": "{color.pine.800}"
+    },
+    "primary-subtle": {
+      "$type": "color",
+      "$value": "{color.pine.50}"
+    },
+    "on-primary-subtle": {
+      "$type": "color",
+      "$value": "{color.pine.800}"
+    },
+    "success": {
+      "$type": "color",
+      "$value": "{color.leaf.600}"
+    },
+    "success-subtle": {
+      "$type": "color",
+      "$value": "{color.leaf.50}"
+    },
+    "success-strong": {
+      "$type": "color",
+      "$value": "{color.leaf.800}"
+    },
+    "warning": {
+      "$type": "color",
+      "$value": "{color.amber.500}"
+    },
+    "warning-subtle": {
+      "$type": "color",
+      "$value": "{color.amber.50}"
+    },
+    "warning-strong": {
+      "$type": "color",
+      "$value": "{color.amber.800}"
+    },
+    "error": {
+      "$type": "color",
+      "$value": "{color.brick.600}"
+    },
+    "error-subtle": {
+      "$type": "color",
+      "$value": "{color.brick.50}"
+    },
+    "error-strong": {
+      "$type": "color",
+      "$value": "{color.brick.800}"
+    },
+    "info": {
+      "$type": "color",
+      "$value": "{color.slate.600}"
+    },
+    "info-subtle": {
+      "$type": "color",
+      "$value": "{color.slate.50}"
+    },
+    "info-strong": {
+      "$type": "color",
+      "$value": "{color.slate.800}"
+    },
+    "macro-carb": {
+      "$type": "color",
+      "$value": "{color.wheat.500}"
+    },
+    "macro-protein": {
+      "$type": "color",
+      "$value": "{color.sky.600}"
+    },
+    "macro-fat": {
+      "$type": "color",
+      "$value": "{color.plum.700}"
+    },
+    "macro-fiber": {
+      "$type": "color",
+      "$value": "{color.olive.500}"
+    },
+    "macro-track": {
+      "$type": "color",
+      "$value": "{color.stone.100}"
+    },
+    "nutrition-calorie": {
+      "$type": "color",
+      "$value": "{color.pine.600}"
+    },
+    "target-under": {
+      "$type": "color",
+      "$value": "{color.pine.600}"
+    },
+    "target-on": {
+      "$type": "color",
+      "$value": "{color.leaf.600}"
+    },
+    "target-over-soft": {
+      "$type": "color",
+      "$value": "{color.amber.500}"
+    },
+    "target-over": {
+      "$type": "color",
+      "$value": "{color.amber.700}"
+    },
+    "ai-surface": {
+      "$type": "color",
+      "$value": "{color.pine.25}"
+    },
+    "ai-border": {
+      "$type": "color",
+      "$value": "{color.pine.200}"
+    },
+    "ai-accent": {
+      "$type": "color",
+      "$value": "{color.pine.600}"
+    },
+    "ambient-glow": {
+      "$type": "color",
+      "$value": "{color.pine.100}"
+    },
+    "scrim": {
+      "$type": "color",
+      "$value": "#1412107A"
+    }
+  },
+  "shadow": {
+    "none": {
+      "$type": "shadow",
+      "$value": []
+    },
+    "low": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "2px",
+          "spread": "0px",
+          "color": "#1412100F"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "2px",
+          "blur": "8px",
+          "spread": "-2px",
+          "color": "#1412100A"
+        }
+      ]
+    },
+    "medium": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "16px",
+          "spread": "-4px",
+          "color": "#14121014"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "2px",
+          "blur": "4px",
+          "spread": "0px",
+          "color": "#1412100A"
+        }
+      ]
+    },
+    "high": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "16px",
+          "blur": "40px",
+          "spread": "-8px",
+          "color": "#1412101F"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "12px",
+          "spread": "-2px",
+          "color": "#1412100F"
+        }
+      ]
+    },
+    "modal": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "32px",
+          "blur": "64px",
+          "spread": "-12px",
+          "color": "#1412102E"
+        }
+      ]
+    }
+  },
+  "$description": "Diyetim semantic token'ları — light tema. Component'ler yalnızca bu katmanı okur."
+}

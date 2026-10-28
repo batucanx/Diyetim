@@ -1,0 +1,6 @@
+# Üretilmiş dosyalar: elle düzenlenmez, diff'te daraltılır. Değişiklik için: pnpm tokens:build
+packages/web/tokens/src/generated/** linguist-generated=true -diff
+packages/flutter/dy_tokens/lib/src/generated/** linguist-generated=true -diff
+*.png binary
+*.ttf binary
+*.woff2 binary

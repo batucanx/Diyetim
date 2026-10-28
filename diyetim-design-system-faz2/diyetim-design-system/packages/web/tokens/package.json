@@ -1,0 +1,16 @@
+{
+  "name": "@diyetim/tokens",
+  "version": "0.2.0",
+  "type": "module",
+  "description": "Diyetim tasarım token'ları: CSS değişkenleri, tipli TS sabitleri ve ortak durum sözleşmeleri. Üretilmiş dosyalar elle düzenlenmez.",
+  "sideEffects": ["*.css"],
+  "exports": {
+    ".": "./src/index.ts",
+    "./tokens.css": "./src/generated/tokens.css",
+    "./fonts.css": "./src/fonts.css",
+    "./resolved.json": "./src/generated/resolved.json"
+  },
+  "files": ["src", "fonts"],
+  "scripts": { "typecheck": "tsc --noEmit -p ." },
+  "devDependencies": { "typescript": "5.9.3" }
+}

@@ -1,0 +1,287 @@
+{
+  "color": {
+    "background": {
+      "$type": "color",
+      "$value": "{color.ink.950}"
+    },
+    "surface": {
+      "$type": "color",
+      "$value": "{color.ink.900}"
+    },
+    "surface-elevated": {
+      "$type": "color",
+      "$value": "{color.ink.850}"
+    },
+    "surface-secondary": {
+      "$type": "color",
+      "$value": "{color.ink.850}"
+    },
+    "surface-sunken": {
+      "$type": "color",
+      "$value": "{color.ink.950}"
+    },
+    "surface-inverse": {
+      "$type": "color",
+      "$value": "{color.ink.50}"
+    },
+    "text-primary": {
+      "$type": "color",
+      "$value": "{color.ink.50}"
+    },
+    "text-secondary": {
+      "$type": "color",
+      "$value": "{color.ink.300}"
+    },
+    "text-muted": {
+      "$type": "color",
+      "$value": "{color.ink.400}"
+    },
+    "text-disabled": {
+      "$type": "color",
+      "$value": "{color.ink.600}"
+    },
+    "text-on-primary": {
+      "$type": "color",
+      "$value": "{color.ink.950}"
+    },
+    "text-on-inverse": {
+      "$type": "color",
+      "$value": "{color.ink.950}"
+    },
+    "text-link": {
+      "$type": "color",
+      "$value": "{color.pine.300}"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "{color.ink.750}"
+    },
+    "border-subtle": {
+      "$type": "color",
+      "$value": "{color.ink.800}"
+    },
+    "border-strong": {
+      "$type": "color",
+      "$value": "{color.ink.500}"
+    },
+    "focus-ring": {
+      "$type": "color",
+      "$value": "{color.pine.300}"
+    },
+    "primary": {
+      "$type": "color",
+      "$value": "{color.pine.300}"
+    },
+    "primary-hover": {
+      "$type": "color",
+      "$value": "{color.pine.200}"
+    },
+    "primary-active": {
+      "$type": "color",
+      "$value": "{color.pine.100}"
+    },
+    "primary-subtle": {
+      "$type": "color",
+      "$value": "{color.pine.900}"
+    },
+    "on-primary-subtle": {
+      "$type": "color",
+      "$value": "{color.pine.200}"
+    },
+    "success": {
+      "$type": "color",
+      "$value": "{color.leaf.300}"
+    },
+    "success-subtle": {
+      "$type": "color",
+      "$value": "{color.leaf.950}"
+    },
+    "success-strong": {
+      "$type": "color",
+      "$value": "{color.leaf.200}"
+    },
+    "warning": {
+      "$type": "color",
+      "$value": "{color.amber.300}"
+    },
+    "warning-subtle": {
+      "$type": "color",
+      "$value": "{color.amber.950}"
+    },
+    "warning-strong": {
+      "$type": "color",
+      "$value": "{color.amber.200}"
+    },
+    "error": {
+      "$type": "color",
+      "$value": "{color.brick.300}"
+    },
+    "error-subtle": {
+      "$type": "color",
+      "$value": "{color.brick.950}"
+    },
+    "error-strong": {
+      "$type": "color",
+      "$value": "{color.brick.200}"
+    },
+    "info": {
+      "$type": "color",
+      "$value": "{color.slate.300}"
+    },
+    "info-subtle": {
+      "$type": "color",
+      "$value": "{color.slate.950}"
+    },
+    "info-strong": {
+      "$type": "color",
+      "$value": "{color.slate.200}"
+    },
+    "macro-carb": {
+      "$type": "color",
+      "$value": "{color.wheat.200}"
+    },
+    "macro-protein": {
+      "$type": "color",
+      "$value": "{color.sky.300}"
+    },
+    "macro-fat": {
+      "$type": "color",
+      "$value": "{color.plum.400}"
+    },
+    "macro-fiber": {
+      "$type": "color",
+      "$value": "{color.olive.300}"
+    },
+    "macro-track": {
+      "$type": "color",
+      "$value": "{color.ink.800}"
+    },
+    "nutrition-calorie": {
+      "$type": "color",
+      "$value": "{color.pine.300}"
+    },
+    "target-under": {
+      "$type": "color",
+      "$value": "{color.pine.300}"
+    },
+    "target-on": {
+      "$type": "color",
+      "$value": "{color.leaf.300}"
+    },
+    "target-over-soft": {
+      "$type": "color",
+      "$value": "{color.amber.300}"
+    },
+    "target-over": {
+      "$type": "color",
+      "$value": "{color.amber.200}"
+    },
+    "ai-surface": {
+      "$type": "color",
+      "$value": "{color.pine.950}"
+    },
+    "ai-border": {
+      "$type": "color",
+      "$value": "{color.pine.800}"
+    },
+    "ai-accent": {
+      "$type": "color",
+      "$value": "{color.pine.300}"
+    },
+    "ambient-glow": {
+      "$type": "color",
+      "$value": "{color.pine.900}"
+    },
+    "scrim": {
+      "$type": "color",
+      "$value": "#000000A3"
+    }
+  },
+  "shadow": {
+    "none": {
+      "$type": "shadow",
+      "$value": []
+    },
+    "low": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "0px",
+          "spread": "0px",
+          "color": "#FFFFFF0D",
+          "inset": true
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "2px",
+          "spread": "0px",
+          "color": "#00000066"
+        }
+      ]
+    },
+    "medium": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "0px",
+          "spread": "0px",
+          "color": "#FFFFFF12",
+          "inset": true
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "8px",
+          "blur": "24px",
+          "spread": "-6px",
+          "color": "#00000080"
+        }
+      ]
+    },
+    "high": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "0px",
+          "spread": "0px",
+          "color": "#FFFFFF17",
+          "inset": true
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "20px",
+          "blur": "48px",
+          "spread": "-12px",
+          "color": "#000000A3"
+        }
+      ]
+    },
+    "modal": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "0px",
+          "spread": "0px",
+          "color": "#FFFFFF1A",
+          "inset": true
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "32px",
+          "blur": "64px",
+          "spread": "-12px",
+          "color": "#000000B3"
+        }
+      ]
+    }
+  },
+  "$description": "Diyetim semantic token'ları — dark tema. Component'ler yalnızca bu katmanı okur."
+}

@@ -1,0 +1,239 @@
+{
+  "colors": {
+    "light": {
+      "background": "#FEFBF7",
+      "surface": "#FFFFFF",
+      "surface-elevated": "#FFFFFF",
+      "surface-secondary": "#F8F5F1",
+      "surface-sunken": "#EEEBE7",
+      "surface-inverse": "#131917",
+      "text-primary": "#141210",
+      "text-secondary": "#54524F",
+      "text-muted": "#6E6B68",
+      "text-disabled": "#ABA9A5",
+      "text-on-primary": "#FFFFFF",
+      "text-on-inverse": "#FFFFFF",
+      "text-link": "#0E5F5A",
+      "border": "#E0DDDA",
+      "border-subtle": "#EEEBE7",
+      "border-strong": "#888682",
+      "focus-ring": "#207871",
+      "primary": "#207871",
+      "primary-hover": "#0E5F5A",
+      "primary-active": "#034743",
+      "primary-subtle": "#EAF8F6",
+      "on-primary-subtle": "#034743",
+      "success": "#2B7C3D",
+      "success-subtle": "#EAF9EC",
+      "success-strong": "#0E4A1E",
+      "warning": "#BD6614",
+      "warning-subtle": "#FEF2EA",
+      "warning-strong": "#5E2F02",
+      "error": "#AF3C33",
+      "error-subtle": "#FEF1EF",
+      "error-strong": "#6D1C17",
+      "info": "#3D6C9E",
+      "info-subtle": "#EEF5FE",
+      "info-strong": "#1E3F62",
+      "macro-carb": "#A07A03",
+      "macro-protein": "#117393",
+      "macro-fat": "#594878",
+      "macro-fiber": "#768A3E",
+      "macro-track": "#EEEBE7",
+      "nutrition-calorie": "#207871",
+      "target-under": "#207871",
+      "target-on": "#2B7C3D",
+      "target-over-soft": "#BD6614",
+      "target-over": "#7E4001",
+      "ai-surface": "#F4FCFB",
+      "ai-border": "#B9E3DE",
+      "ai-accent": "#207871",
+      "ambient-glow": "#D6F0ED",
+      "scrim": "#1412107A"
+    },
+    "dark": {
+      "background": "#0D1211",
+      "surface": "#131917",
+      "surface-elevated": "#191F1D",
+      "surface-secondary": "#191F1D",
+      "surface-sunken": "#0D1211",
+      "surface-inverse": "#EAF2F0",
+      "text-primary": "#EAF2F0",
+      "text-secondary": "#B0B8B5",
+      "text-muted": "#8E9693",
+      "text-disabled": "#4A504E",
+      "text-on-primary": "#0D1211",
+      "text-on-inverse": "#0D1211",
+      "text-link": "#8DCEC7",
+      "border": "#282E2C",
+      "border-subtle": "#202624",
+      "border-strong": "#6B7270",
+      "focus-ring": "#8DCEC7",
+      "primary": "#8DCEC7",
+      "primary-hover": "#B9E3DE",
+      "primary-active": "#D6F0ED",
+      "primary-subtle": "#00322F",
+      "on-primary-subtle": "#B9E3DE",
+      "success": "#92D29A",
+      "success-subtle": "#012008",
+      "success-strong": "#BCE6C0",
+      "warning": "#F6AD79",
+      "warning-subtle": "#2B1200",
+      "warning-strong": "#FECEAC",
+      "error": "#FFA397",
+      "error-subtle": "#340605",
+      "error-strong": "#FECBC4",
+      "info": "#9BC3F1",
+      "info-subtle": "#081A2E",
+      "info-strong": "#C1DCFB",
+      "macro-carb": "#EDD7A6",
+      "macro-protein": "#87CAE6",
+      "macro-fat": "#A893D0",
+      "macro-fiber": "#B6C88D",
+      "macro-track": "#202624",
+      "nutrition-calorie": "#8DCEC7",
+      "target-under": "#8DCEC7",
+      "target-on": "#92D29A",
+      "target-over-soft": "#F6AD79",
+      "target-over": "#FECEAC",
+      "ai-surface": "#001F1D",
+      "ai-border": "#034743",
+      "ai-accent": "#8DCEC7",
+      "ambient-glow": "#00322F",
+      "scrim": "#000000A3"
+    }
+  },
+  "shadows": {
+    "light": {
+      "none": [],
+      "low": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "2px",
+          "spread": "0px",
+          "color": "#1412100F"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "2px",
+          "blur": "8px",
+          "spread": "-2px",
+          "color": "#1412100A"
+        }
+      ],
+      "medium": [
+        {
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "16px",
+          "spread": "-4px",
+          "color": "#14121014"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "2px",
+          "blur": "4px",
+          "spread": "0px",
+          "color": "#1412100A"
+        }
+      ],
+      "high": [
+        {
+          "offsetX": "0px",
+          "offsetY": "16px",
+          "blur": "40px",
+          "spread": "-8px",
+          "color": "#1412101F"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "12px",
+          "spread": "-2px",
+          "color": "#1412100F"
+        }
+      ],
+      "modal": [
+        {
+          "offsetX": "0px",
+          "offsetY": "32px",
+          "blur": "64px",
+          "spread": "-12px",
+          "color": "#1412102E"
+        }
+      ]
+    },
+    "dark": {
+      "none": [],
+      "low": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "0px",
+          "spread": "0px",
+          "color": "#FFFFFF0D",
+          "inset": true
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "2px",
+          "spread": "0px",
+          "color": "#00000066"
+        }
+      ],
+      "medium": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "0px",
+          "spread": "0px",
+          "color": "#FFFFFF12",
+          "inset": true
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "8px",
+          "blur": "24px",
+          "spread": "-6px",
+          "color": "#00000080"
+        }
+      ],
+      "high": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "0px",
+          "spread": "0px",
+          "color": "#FFFFFF17",
+          "inset": true
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "20px",
+          "blur": "48px",
+          "spread": "-12px",
+          "color": "#000000A3"
+        }
+      ],
+      "modal": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "0px",
+          "spread": "0px",
+          "color": "#FFFFFF1A",
+          "inset": true
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "32px",
+          "blur": "64px",
+          "spread": "-12px",
+          "color": "#000000B3"
+        }
+      ]
+    }
+  }
+}
