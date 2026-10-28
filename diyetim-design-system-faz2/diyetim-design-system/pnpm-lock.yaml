@@ -6,7 +6,11 @@ settings:
 
 importers:
 
-  .: {}
+  .:
+    devDependencies:
+      svgpath:
+        specifier: 2.6.0
+        version: 2.6.0
 
   packages/web/catalog:
     dependencies:
@@ -660,6 +664,9 @@ packages:
     resolution: {integrity: sha512-laJTa3Jb+VQpaC6DseHhF7dXVqHTfJPCRDaEbid/drOhgitgYku/letMUqOXFoWV0zIIUbjpdH2t+tYj4bQMRQ==}
     engines: {node: '>=8'}
 
+  svgpath@2.6.0:
+    resolution: {integrity: sha512-OIWR6bKzXvdXYyO4DK/UWa1VA1JeKq8E+0ug2DG98Y/vOmMpfZNj+TIG988HjfYSqtcy/hFOtZq/n/j5GSESNg==}
+
   tinybench@6.2.2:
     resolution: {integrity: sha512-nIZ2N2dFpjBsg2hgitKu7mA+FvsIJuGJOwysRngmVRRmWgR/UyPjwJj8c/fT/dhm8EkHnF5EOogRf+0Z2qrimA==}
     engines: {node: '>=20.0.0'}
@@ -1253,6 +1260,8 @@ snapshots:
   strip-indent@3.0.0:
     dependencies:
       min-indent: 1.0.1
+
+  svgpath@2.6.0: {}
 
   tinybench@6.2.2: {}
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Diyetim token build: tokens/*.json + spec/contracts.json → CSS, TypeScript, Dart.
+// Diyetim token build: tokens/*.json + spec/contracts.json + spec/icons.json → CSS, TypeScript, Dart.
 // Kullanım: node tools/tokens/build.mjs          (dosyaları yazar)
 //           node tools/tokens/build.mjs --check  (diskteki çıktılar kaynakla aynı değilse hata verir)
 import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'node:fs';
@@ -7,6 +7,7 @@ import { join, dirname } from 'node:path';
 import {
   ROOT, THEMES, loadSources, resolvedColors, resolvedShadows, foundationValue, entries, camel, pascal, hashOf,
 } from './lib.mjs';
+import { buildTsIcons, buildDartIcons } from './icons.mjs';
 
 const src = loadSources();
 const colors = resolvedColors(src);
@@ -92,8 +93,16 @@ function buildTs() {
 
 function buildTsContracts() {
   const o = [];
+  const st = src.contracts.statusStyles;
+  o.push(`/** Durum tonları (Tag, SourceTag zemini/metni). */\nexport const StatusTone = ${JSON.stringify(src.contracts.statusTones)} as const;\nexport type StatusTone = (typeof StatusTone)[number];`);
   for (const [name, def] of Object.entries(src.contracts.enums)) {
     o.push(`/** ${def.doc} */\nexport const ${name} = ${JSON.stringify(def.values)} as const;\nexport type ${name} = (typeof ${name})[number];`);
+  }
+  for (const [name, map] of Object.entries(st)) {
+    if (name.startsWith('$')) continue;
+    const lc = name[0].toLowerCase() + name.slice(1);
+    const rows = Object.entries(map).map(([k, [tone, icon]]) => `  ${JSON.stringify(k)}: { tone: '${tone}', icon: '${icon}', i18nKey: '${lc}.${k}' },`);
+    o.push(`export const ${lc}Styles: Record<${name}, { tone: StatusTone; icon: string; i18nKey: string }> = {\n${rows.join('\n')}\n};`);
   }
   return o.join('\n\n') + '\n';
 }
@@ -175,7 +184,7 @@ function buildDartFoundation() {
 function buildDartTypography() {
   const o = [`import 'package:flutter/painting.dart';`, `import 'dy_contracts.g.dart';`, '',
     '/// Tipografi ölçüleri. [compact] mobil, [expanded] masaüstü (≥ DyBreakpoint.expanded).',
-    'abstract final class DyTypeScale {', `  static const fontFamily = '${F.font.family.primary.$value[0]}';`, ''];
+    'abstract final class DyTypeScale {', `  static const fontFamily = '${F.font.family.primary.$value[0]}';`, '', '  /// Font dosyaları dy_tokens paketindedir (fonts/); uygulama pubspec\'ine ayrıca eklenmez.', `  static const fontPackage = 'dy_tokens';`, ''];
   for (const [mode, i] of [['compact', 0], ['expanded', 1]]) {
     o.push(`  static TextStyle ${mode}(DyTextStyle style) => switch (style) {`);
     for (const s of STYLES) {
@@ -183,7 +192,7 @@ function buildDartTypography() {
       const fs = px(t.fontSize[i]); const lh = px(t.lineHeight[i]);
       const ls = letter(t.letterSpacing); const lsPx = ls.endsWith('em') ? +(parseFloat(ls) * fs).toFixed(3) : px(ls);
       const feat = isNumeric(s) ? `, fontFeatures: [FontFeature.tabularFigures()]` : '';
-      o.push(`        DyTextStyle.${camel(s)} => const TextStyle(fontFamily: fontFamily, fontSize: ${dartNum(fs)}, height: ${+(lh / fs).toFixed(4)}, fontWeight: FontWeight.w${t.fontWeight}, letterSpacing: ${dartNum(lsPx)}${feat}, leadingDistribution: TextLeadingDistribution.even),`);
+      o.push(`        DyTextStyle.${camel(s)} => const TextStyle(fontFamily: fontFamily, package: fontPackage, fontSize: ${dartNum(fs)}, height: ${+(lh / fs).toFixed(4)}, fontWeight: FontWeight.w${t.fontWeight}, letterSpacing: ${dartNum(lsPx)}${feat}, leadingDistribution: TextLeadingDistribution.even),`);
     }
     o.push('      };', '');
   }
@@ -192,10 +201,16 @@ function buildDartTypography() {
 }
 
 function buildDartContracts() {
-  const o = [];
+  const o = ['/// Durum tonları (Tag, SourceTag).', `enum DyStatusTone { ${src.contracts.statusTones.join(', ')} }`, ''];
   for (const [name, def] of Object.entries(src.contracts.enums)) {
     const dartName = name === 'TextStyleToken' ? 'DyTextStyle' : `Dy${name}`;
     o.push(`/// ${def.doc}`, `enum ${dartName} {`, ...def.values.map((v) => `  ${camel(v)}('${v}'),`), '  ;', '', `  const ${dartName}(this.wire);`, '', '  /// Platformlar arası ortak ad (spec/contracts.json).', '  final String wire;', '}', '');
+  }
+  o.push('/// Durumun görsel karşılığı. Metin, çeviri anahtarı [i18nKey] ile gelir.', 'class DyStatusStyle {', '  const DyStatusStyle(this.tone, this.icon, this.i18nKey);', '  final DyStatusTone tone;', '', '  /// DyIcons içindeki ikon adı.', '  final String icon;', '  final String i18nKey;', '}', '');
+  for (const [name, map] of Object.entries(src.contracts.statusStyles)) {
+    if (name.startsWith('$')) continue;
+    const lc = name[0].toLowerCase() + name.slice(1);
+    o.push(`extension Dy${name}Style on Dy${name} {`, '  DyStatusStyle get style => switch (this) {', ...Object.entries(map).map(([k, [tone, icon]]) => `        Dy${name}.${camel(k)} => const DyStatusStyle(DyStatusTone.${tone}, '${icon}', '${lc}.${k}'),`), '      };', '}', '');
   }
   return o.join('\n');
 }
@@ -224,6 +239,8 @@ const outputs = {
   [`${DART}/dy_typography.g.dart`]: buildDartTypography(),
   [`${DART}/dy_contracts.g.dart`]: buildDartContracts(),
   [`${DART}/resolved.json`]: JSON.stringify({ colors }, null, 2) + '\n',
+  ['packages/web/ui/src/generated/icons.ts']: buildTsIcons(),
+  ['packages/flutter/dy_ui/lib/src/generated/dy_icons.g.dart']: buildDartIcons(),
 };
 
 const check = process.argv.includes('--check');

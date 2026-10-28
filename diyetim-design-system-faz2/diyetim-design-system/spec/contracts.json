@@ -329,5 +329,128 @@
       "surface",
       3.0
     ]
+  ],
+  "statusStyles": {
+    "$description": "Durum → ton ve ikon eşlemesi. Metinler çeviri anahtarıyla gelir: <enum>.<değer> (ör. mealStatus.pending-review). Faz 3 component'leri bunu kullanır.",
+    "MealStatus": {
+      "planned": [
+        "info",
+        "calendar"
+      ],
+      "logged": [
+        "neutral",
+        "check"
+      ],
+      "pending-review": [
+        "warning",
+        "clock"
+      ],
+      "approved": [
+        "success",
+        "checkCircle"
+      ],
+      "needs-correction": [
+        "warning",
+        "note"
+      ],
+      "entered-by-dietitian": [
+        "primary",
+        "stethoscope"
+      ],
+      "skipped": [
+        "neutral",
+        "x"
+      ],
+      "cheat": [
+        "info",
+        "spark"
+      ]
+    },
+    "AppointmentStatus": {
+      "available": [
+        "neutral",
+        "calendar"
+      ],
+      "pending": [
+        "warning",
+        "clock"
+      ],
+      "confirmed": [
+        "success",
+        "checkCircle"
+      ],
+      "completed": [
+        "neutral",
+        "check"
+      ],
+      "cancelled": [
+        "error",
+        "x"
+      ],
+      "no-show": [
+        "error",
+        "alert"
+      ],
+      "rescheduling": [
+        "info",
+        "refresh"
+      ]
+    },
+    "LabValueStatus": {
+      "normal": [
+        "success",
+        "check"
+      ],
+      "low": [
+        "warning",
+        "arrowDown"
+      ],
+      "high": [
+        "warning",
+        "arrowUp"
+      ],
+      "supplement": [
+        "info",
+        "pill"
+      ],
+      "uncertain": [
+        "neutral",
+        "info"
+      ],
+      "unreadable": [
+        "neutral",
+        "eyeOff"
+      ],
+      "corrected": [
+        "primary",
+        "stethoscope"
+      ]
+    },
+    "DataSource": {
+      "patient": [
+        "neutral",
+        "user"
+      ],
+      "dietitian": [
+        "primary",
+        "stethoscope"
+      ],
+      "ai": [
+        "primary",
+        "spark"
+      ],
+      "verified": [
+        "success",
+        "checkCircle"
+      ]
+    }
+  },
+  "statusTones": [
+    "neutral",
+    "success",
+    "warning",
+    "error",
+    "info",
+    "primary"
   ]
 }

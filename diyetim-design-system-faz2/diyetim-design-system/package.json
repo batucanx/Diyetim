@@ -12,5 +12,8 @@
     "test:visual": "pnpm --filter @diyetim/catalog test:visual",
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm tokens:check && pnpm test:tokens && pnpm typecheck && pnpm test:web"
+  },
+  "devDependencies": {
+    "svgpath": "2.6.0"
   }
 }

@@ -55,3 +55,15 @@ test('Nunito raporu: tüm zorunlu kontroller geçmiş', () => {
   const report = JSON.parse(readFileSync(join(ROOT, 'tools/fonts/nunito-report.json'), 'utf8'));
   for (const r of report) assert.ok(r.ok, r.check);
 });
+
+test('durum stilleri tüm enum değerlerini kapsar ve ikonları sette var', () => {
+  const icons = JSON.parse(readFileSync(join(ROOT, 'spec/icons.json'), 'utf8')).icons;
+  for (const [name, map] of Object.entries(src.contracts.statusStyles)) {
+    if (name.startsWith('$')) continue;
+    assert.deepEqual(Object.keys(map).sort(), [...src.contracts.enums[name].values].sort(), `${name} eksik/fazla değer`);
+    for (const [k, [tone, icon]] of Object.entries(map)) {
+      assert.ok(src.contracts.statusTones.includes(tone), `${name}.${k} ton`);
+      assert.ok(icons[icon], `${name}.${k} ikon yok: ${icon}`);
+    }
+  }
+});

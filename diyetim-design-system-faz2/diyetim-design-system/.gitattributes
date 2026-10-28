@@ -4,3 +4,5 @@ packages/flutter/dy_tokens/lib/src/generated/** linguist-generated=true -diff
 *.png binary
 *.ttf binary
 *.woff2 binary
+packages/web/ui/src/generated/** linguist-generated=true -diff
+packages/flutter/dy_ui/lib/src/generated/** linguist-generated=true -diff

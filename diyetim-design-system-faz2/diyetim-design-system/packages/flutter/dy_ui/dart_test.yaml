@@ -1,0 +1,3 @@
+tags:
+  golden:
+    description: Görsel referans testleri. İlk kurulumda `flutter test --update-goldens --tags golden` ile üretilir.
