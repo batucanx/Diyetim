@@ -2,7 +2,7 @@ import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import resolved from '@diyetim/tokens/resolved.json' with { type: 'json' };
 
-const STORIES = ['text', 'number', 'icon', 'surface', 'skeleton', 'button', 'textfield', 'select', 'choice', 'tags', 'alerts', 'states'];
+const STORIES = ['text', 'number', 'icon', 'surface', 'skeleton', 'button', 'textfield', 'select', 'choice', 'tags', 'alerts', 'states', 'tabs', 'shell', 'shell-collapsed', 'mobilenav', 'layers'];
 
 async function open(page: Page, story: string, theme = 'light') {
   await page.goto(`/?story=${story}&theme=${theme}`);
@@ -33,6 +33,8 @@ test.describe('%200 metin ölçeği ve dar ekran (320 px): yatay taşma yok', ()
         const doc = document.documentElement;
         const offenders = [...document.querySelectorAll<HTMLElement>('main *')]
           .filter((el) => el.getBoundingClientRect().right > doc.clientWidth + 1 && getComputedStyle(el).position !== 'absolute' && !el.closest('.dy-visually-hidden'))
+          // Bilinçli yatay kaydırma kapsayıcıları (ör. sekme listesi) içindeki öğeler sayfa taşması değildir.
+          .filter((el) => { for (let p = el.parentElement; p && p !== doc; p = p.parentElement) { const o = getComputedStyle(p).overflowX; if (o === 'auto' || o === 'scroll') return false; } return true; })
           .map((el) => el.className || el.tagName).slice(0, 5);
         return { scroll: doc.scrollWidth, client: doc.clientWidth, offenders };
       });
@@ -141,4 +143,52 @@ test('Tooltip klavye odağında görünür ve Escape ile kapanır', async ({ pag
   await expect(page.getByRole('tooltip')).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(page.getByRole('tooltip')).toBeHidden();
+});
+
+test.describe('katmanlar gerçek tarayıcıda', () => {
+  test('Dialog: odak tuzağı, Escape, odağın geri dönmesi; dar ekranda alttan sayfa', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/?story=layers');
+    const opener = page.getByRole('button', { name: 'Not ekle' });
+    await opener.click();
+    const dialog = page.getByRole('dialog', { name: 'Öğün notu' });
+    await expect(dialog).toBeVisible();
+    const box = await dialog.boundingBox();
+    expect(Math.round(box!.y + box!.height)).toBeGreaterThanOrEqual(843); // alttan sayfa: ekranın altına yapışık
+    for (let i = 0; i < 8; i++) await page.keyboard.press('Tab');
+    const inside = await page.evaluate(() => !!document.activeElement?.closest('[role="dialog"]'));
+    expect(inside).toBe(true);
+    const r = await new AxeBuilder({ page }).include('[role="dialog"]').analyze();
+    expect(r.violations.map((v) => v.id)).toEqual([]);
+    await page.keyboard.press('Escape');
+    await expect(dialog).toHaveCount(0);
+    await expect(opener).toBeFocused();
+  });
+  test('Dialog masaüstünde ortada', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/?story=dialog-open');
+    const box = await page.getByRole('dialog').boundingBox();
+    expect(Math.abs(box!.x + box!.width / 2 - 640)).toBeLessThan(2);
+  });
+  test('Menu klavyeyle ve axe', async ({ page }) => {
+    await page.goto('/?story=layers');
+    await page.getByRole('button', { name: 'Eylemler' }).focus();
+    await page.keyboard.press('ArrowDown');
+    await expect(page.getByRole('menu')).toBeFocused();
+    const r = await new AxeBuilder({ page }).include('[role="menu"]').analyze();
+    expect(r.violations.map((v) => v.id)).toEqual([]);
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('menu')).toHaveCount(0);
+  });
+});
+
+test('Sidebar responsive: mobilde gizli, tablette 72 px ray, masaüstünde 264 px', async ({ page }) => {
+  for (const [w, expected] of [[390, 0], [800, 72], [1280, 264]] as const) {
+    await page.setViewportSize({ width: w, height: 900 });
+    await page.goto('/?story=shell');
+    const width = await page.locator('.dy-sidebar').evaluate((el) => (getComputedStyle(el).display === 'none' ? 0 : el.getBoundingClientRect().width));
+    expect(width, `${w}px`).toBe(expected);
+  }
+  await page.setViewportSize({ width: 800, height: 900 });
+  await expect(page.getByRole('link', { name: /Danışanlar/ })).toBeVisible();
 });

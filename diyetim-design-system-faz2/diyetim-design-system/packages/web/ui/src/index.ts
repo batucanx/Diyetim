@@ -24,3 +24,8 @@ export { Tooltip, type TooltipProps } from './components/Tooltip';
 export { Alert, Banner, type AlertProps } from './components/Alert';
 export { ToastProvider, useToast, type ToastOptions } from './components/Toast';
 export { EmptyState, ErrorState, OfflineState, LoadingRegion, type EmptyStateProps, type ErrorStateProps, type OfflineStateProps, type LoadingRegionProps } from './components/States';
+// Grup D — navigasyon ve katmanlar
+export { Dialog, ConfirmDialog, BottomSheet, type DialogProps, type ConfirmDialogProps, type BottomSheetProps } from './components/Dialog';
+export { Popover, Menu, type PopoverProps, type MenuProps, type MenuItem } from './components/Popover';
+export { Tabs, type TabsProps, type TabItem } from './components/Tabs';
+export { Sidebar, TopBar, Breadcrumb, AppBar, BottomNavigation, type NavItem, type BreadcrumbItem } from './components/Navigation';

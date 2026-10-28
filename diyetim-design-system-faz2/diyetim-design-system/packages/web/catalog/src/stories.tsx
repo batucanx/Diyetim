@@ -3,6 +3,7 @@ import {
   Text, NumberDisplay, Icon, Surface, Stack, Skeleton, Pressable, Button, IconButton, Fab, TextField, SearchField, NumberField,
   Textarea, Select, MultiSelect, Checkbox, RadioGroup, Switch, SegmentedControl, type SelectOption,
   Tag, StatusTag, SourceTag, Badge, Tooltip, Alert, Banner, ToastProvider, useToast, EmptyState, ErrorState, OfflineState, LoadingRegion,
+  Dialog, ConfirmDialog, Popover, Menu, Tabs, Sidebar, TopBar, Breadcrumb, AppBar, BottomNavigation, type NavItem,
 } from '@diyetim/ui';
 import { MealStatus, AppointmentStatus, LabValueStatus } from '@diyetim/tokens';
 
@@ -28,7 +29,31 @@ function ToastDemo() {
   );
 }
 
-export interface Story { id: string; group: 'A' | 'B' | 'C'; title: string; render: () => ReactNode }
+const NAV: NavItem[] = [
+  { id: 'queue', label: 'Onay kuyruğu', icon: 'checkCircle', badge: 12, badgeLabel: '12 öğün onay bekliyor' },
+  { id: 'patients', label: 'Danışanlar', icon: 'users' },
+  { id: 'calendar', label: 'Takvim', icon: 'calendar' },
+  { id: 'plans', label: 'Diyet planları', icon: 'plan' },
+  { id: 'settings', label: 'Ayarlar', icon: 'settings' },
+];
+
+function DialogDemo({ initialOpen = false, confirm = false }: { initialOpen?: boolean; confirm?: boolean }) {
+  const [open, setOpen] = useState(initialOpen);
+  return (
+    <>
+      <Button variant={confirm ? 'destructive' : 'secondary'} onClick={() => setOpen(true)}>{confirm ? 'Randevuyu iptal et' : 'Not ekle'}</Button>
+      {confirm ? (
+        <ConfirmDialog open={open} tone="destructive" title="Randevu iptal edilsin mi?" description="15 Ekim 10:30 randevusu iptal edilecek ve danışana bildirim gidecek." confirmLabel="İptal et" onConfirm={() => setOpen(false)} onCancel={() => setOpen(false)} />
+      ) : (
+        <Dialog open={open} onClose={() => setOpen(false)} title="Öğün notu" description="Elif bu notu öğle öğününde görecek." footer={<><Button variant="tertiary" onClick={() => setOpen(false)}>Vazgeç</Button><Button onClick={() => setOpen(false)}>Kaydet</Button></>}>
+          <Textarea label="Not" defaultValue="Harika bir tabak! Akşam karbonhidratı hafif tutalım." maxLength={200} />
+        </Dialog>
+      )}
+    </>
+  );
+}
+
+export interface Story { id: string; group: 'A' | 'B' | 'C' | 'D'; title: string; render: () => ReactNode }
 
 export const stories: Story[] = [
   { id: 'text', group: 'A', title: 'Text', render: () => (
@@ -176,4 +201,43 @@ export const stories: Story[] = [
     </Stack>
   ) },
   { id: 'toast', group: 'C', title: 'Toast ve Snackbar', render: () => <ToastProvider><ToastDemo /></ToastProvider> },
+  { id: 'tabs', group: 'D', title: 'Tabs ve Breadcrumb', render: () => (
+    <Stack gap="lg">
+      <Breadcrumb items={[{ label: 'Panel', href: '#' }, { label: 'Danışanlar', href: '#' }, { label: 'Elif Yıldız' }]} />
+      <Tabs label="Danışan detayı" defaultValue="gunluk" items={[
+        { value: 'ozet', label: 'Özet', content: <Text tone="secondary">Özet içerik</Text> },
+        { value: 'gunluk', label: 'Günlük akış', count: 3, countLabel: '3 öğün onay bekliyor', content: <Text tone="secondary">Günlük akış içerik</Text> },
+        { value: 'plan', label: 'Plan', content: <Text tone="secondary">Plan</Text> },
+        { value: 'tahlil', label: 'Tahliller', content: <Text tone="secondary">Tahliller</Text> },
+        { value: 'yetki', label: 'Yetki ve görünürlük', content: <Text tone="secondary">Yetkiler</Text> },
+      ]} />
+    </Stack>
+  ) },
+  { id: 'shell', group: 'D', title: 'Sidebar ve TopBar (panel)', render: () => (
+    <div style={{ display: 'flex', height: 'calc(var(--size-sidebar) * 2)', border: 'var(--border-width-hairline) solid var(--color-border-subtle)', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+      <Sidebar items={NAV} activeId="queue" header={<Text variant="h4">Diyetim Klinik</Text>} footer={<Text variant="caption" tone="muted">Dyt. Zeynep Kaya</Text>} />
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <TopBar title="Onay kuyruğu" breadcrumb={<Breadcrumb items={[{ label: 'Panel', href: '#' }, { label: 'Onay kuyruğu' }]} />} actions={<><Menu label="Kuyruk eylemleri" trigger={<IconButton icon="more" label="Diğer eylemler" />} items={[{ id: 'a', label: 'Tümünü onayla', icon: 'checkCircle', onSelect: () => {} }, { id: 'b', label: 'Dışa aktar', icon: 'file', onSelect: () => {} }]} /><Button size="sm" iconStart="filter" variant="tertiary">Filtrele</Button></>} />
+      </div>
+    </div>
+  ) },
+  { id: 'shell-collapsed', group: 'D', title: 'Sidebar dar ray', render: () => (
+    <div style={{ display: 'flex', height: 'calc(var(--size-sidebar) * 1.6)' }}><Sidebar items={NAV} activeId="patients" collapsed /></div>
+  ) },
+  { id: 'mobilenav', group: 'D', title: 'AppBar ve BottomNavigation (dar ekran)', render: () => (
+    <div style={{ maxWidth: 'calc(var(--size-sidebar) * 1.6)', border: 'var(--border-width-hairline) solid var(--color-border-subtle)', borderRadius: 'var(--radius-xl)', overflow: 'hidden', background: 'var(--color-background)' }}>
+      <AppBar title="Onay kuyruğu" onMenu={() => {}} actions={<IconButton icon="search" label="Ara" />} />
+      <div style={{ height: 'calc(var(--size-sidebar) * 0.8)' }} />
+      <BottomNavigation items={NAV.slice(0, 4)} activeId="queue" centerAction={{ icon: 'checkCircle', label: 'Hızlı onay', onClick: () => {} }} />
+      <div style={{ height: 'var(--spacing-md)' }} />
+    </div>
+  ) },
+  { id: 'layers', group: 'D', title: 'Dialog, ConfirmDialog, Popover, Menu', render: () => (
+    <Stack direction="horizontal" gap="md" wrap>
+      <DialogDemo /><DialogDemo confirm />
+      <Popover label="Filtreler" trigger={<Button variant="tertiary" iconStart="filter">Filtrele</Button>}>{(close) => (<Stack gap="md"><Select label="Öğün tipi" options={meals} /><Button onClick={close}>Uygula</Button></Stack>)}</Popover>
+      <Menu label="Öğün eylemleri" trigger={<Button variant="ghost" iconEnd="chevronDown">Eylemler</Button>} items={[{ id: 'e', label: 'Düzenle', icon: 'note', onSelect: () => {} }, { id: 'c', label: 'Kopyala', disabled: true, onSelect: () => {} }, { id: 'x', label: 'Sil', icon: 'x', destructive: true, onSelect: () => {} }]} />
+    </Stack>
+  ) },
+  { id: 'dialog-open', group: 'D', title: 'Dialog (açık)', render: () => <DialogDemo initialOpen /> },
 ];

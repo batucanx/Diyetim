@@ -125,9 +125,59 @@ class DyGallery extends StatelessWidget {
             WidgetbookUseCase(name: 'Çevrimdışı', builder: (context) => DyOfflineState(pendingCount: context.knobs.int.slider(label: 'Bekleyen', initialValue: 3, min: 0, max: 20), onRetry: () {})),
           ]),
         ]),
+        WidgetbookCategory(name: 'D · Navigasyon ve katmanlar', children: [
+          WidgetbookComponent(name: 'DyAppBar', useCases: [
+            WidgetbookUseCase(name: 'Standart ve büyük', builder: (context) => Column(children: [
+                  DyAppBar(title: 'Öğün detayı', onBack: () {}, actions: [DyIconButton(icon: DyIcons.more, label: 'Diğer', onPressed: () {})]),
+                  const DyAppBar(title: 'Bugün', large: true),
+                ])),
+          ]),
+          WidgetbookComponent(name: 'DyBottomNavigation', useCases: [
+            WidgetbookUseCase(name: 'Danışan uygulaması', builder: (context) => Align(alignment: Alignment.bottomCenter, child: DyBottomNavigation(
+                  selectedIndex: 0,
+                  onSelected: (_) {},
+                  centerAction: DyIcons.camera,
+                  centerActionLabel: 'Öğün fotoğrafı çek',
+                  onCenterAction: () {},
+                  destinations: const [
+                    DyNavDestination(label: 'Bugün', icon: DyIcons.home),
+                    DyNavDestination(label: 'Plan', icon: DyIcons.plan),
+                    DyNavDestination(label: 'İlerleme', icon: DyIcons.chart),
+                    DyNavDestination(label: 'Profil', icon: DyIcons.user, badge: 2, badgeLabel: '2 yeni not'),
+                  ],
+                ))),
+          ]),
+          WidgetbookComponent(name: 'DyTabs', useCases: [
+            WidgetbookUseCase(name: 'Sekmeler', builder: (context) => _pad(const _TabsDemo())),
+          ]),
+          WidgetbookComponent(name: 'DyDialog · DyBottomSheet · DyMenu', useCases: [
+            WidgetbookUseCase(name: 'Katmanlar', builder: (context) => _pad(DyStack(gap: DySpacing.md, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Builder(builder: (context) => DyButton(label: 'Onay penceresi', variant: DyButtonVariant.destructive, onPressed: () => DyDialog.confirm(context, title: 'Randevu iptal edilsin mi?', description: '15 Ekim 10:30 randevusu iptal edilecek ve danışana bildirim gidecek.', confirmLabel: 'İptal et', destructive: true))),
+                  Builder(builder: (context) => DyButton(label: 'Alttan sayfa', variant: DyButtonVariant.secondary, onPressed: () => DyBottomSheet.show<void>(context, title: 'Öğün notu', body: const DyTextarea(label: 'Not', maxLength: 200), action: DyButton(label: 'Kaydet', fullWidth: true, size: DyButtonSize.lg, onPressed: () => Navigator.of(context).pop())))),
+                  DyMenu(
+                    entries: [DyMenuEntry(label: 'Düzenle', icon: DyIcons.note, onSelected: () {}), DyMenuEntry(label: 'Sil', icon: DyIcons.x, destructive: true, onSelected: () {})],
+                    builder: (context, controller) => DyIconButton(icon: DyIcons.more, label: 'Diğer eylemler', variant: DyIconButtonVariant.surface, onPressed: () => controller.isOpen ? controller.close() : controller.open()),
+                  ),
+                ]))),
+          ]),
+        ]),
       ],
     );
   }
+}
+
+class _TabsDemo extends StatefulWidget {
+  const _TabsDemo();
+  @override
+  State<_TabsDemo> createState() => _TabsDemoState();
+}
+
+class _TabsDemoState extends State<_TabsDemo> {
+  int i = 1;
+  @override
+  Widget build(BuildContext context) => DyTabs(label: 'Danışan detayı', selectedIndex: i, onSelected: (x) => setState(() => i = x), tabs: const [
+        DyTab(label: 'Özet'), DyTab(label: 'Günlük akış', count: 3, countLabel: '3 öğün onay bekliyor'), DyTab(label: 'Plan'), DyTab(label: 'Tahliller'), DyTab(label: 'Yetki ve görünürlük'),
+      ]);
 }
 
 Widget _pad(Widget child) => SingleChildScrollView(padding: const EdgeInsets.all(DySpacing.xl), child: child);
