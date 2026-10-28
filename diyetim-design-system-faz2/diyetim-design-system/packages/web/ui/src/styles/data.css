@@ -29,6 +29,7 @@
 .dy-list-item__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--spacing-2xs); }
 .dy-list-item__title { font-size: var(--font-size-body); line-height: var(--line-height-body-sm); font-weight: var(--font-weight-semibold); overflow-wrap: anywhere; }
 .dy-list-item__desc { font-size: var(--font-size-body-sm); line-height: var(--line-height-body-sm); color: var(--color-text-muted); overflow-wrap: anywhere; }
+.dy-list-item__meta { display: flex; flex-wrap: wrap; gap: var(--spacing-xs); padding-top: var(--spacing-2xs); }
 .dy-list-item__trailing { flex: none; display: inline-flex; align-items: center; gap: var(--spacing-sm); color: var(--color-text-secondary); font-variant-numeric: tabular-nums; }
 .dy-list-item__chevron { color: var(--color-text-muted); }
 
@@ -51,9 +52,9 @@
 
 /* Progress */
 .dy-progress { display: flex; flex-direction: column; gap: var(--spacing-xs); min-width: 0; }
-.dy-progress__head { display: flex; justify-content: space-between; gap: var(--spacing-sm); font-size: var(--font-size-caption); line-height: var(--line-height-caption); }
+.dy-progress__head { display: flex; flex-wrap: wrap; justify-content: space-between; column-gap: var(--spacing-sm); font-size: var(--font-size-caption); line-height: var(--line-height-caption); }
 .dy-progress__label { color: var(--color-text-secondary); font-weight: var(--font-weight-semibold); }
-.dy-progress__value { color: var(--color-text-primary); font-weight: var(--font-weight-bold); font-variant-numeric: tabular-nums; }
+.dy-progress__value { white-space: nowrap; margin-inline-start: auto; color: var(--color-text-primary); font-weight: var(--font-weight-bold); font-variant-numeric: tabular-nums; }
 .dy-progress__track { position: relative; height: var(--spacing-sm); border-radius: var(--radius-full); background: var(--color-macro-track); overflow: hidden; }
 .dy-progress--sm .dy-progress__track { height: calc(var(--spacing-xs) + var(--spacing-2xs)); }
 .dy-progress__fill { position: absolute; inset: 0 auto 0 0; border-radius: inherit; transition: width var(--duration-deliberate) var(--ease-emphasized); }

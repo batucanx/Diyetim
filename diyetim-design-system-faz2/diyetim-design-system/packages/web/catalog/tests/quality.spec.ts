@@ -2,7 +2,7 @@ import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import resolved from '@diyetim/tokens/resolved.json' with { type: 'json' };
 
-const STORIES = ['text', 'number', 'icon', 'surface', 'skeleton', 'button', 'textfield', 'select', 'choice', 'tags', 'alerts', 'states', 'tabs', 'shell', 'shell-collapsed', 'mobilenav', 'layers', 'cards', 'progress', 'table', 'table-states'];
+const STORIES = ['text', 'number', 'icon', 'surface', 'skeleton', 'button', 'textfield', 'select', 'choice', 'tags', 'alerts', 'states', 'tabs', 'shell', 'shell-collapsed', 'mobilenav', 'layers', 'cards', 'progress', 'table', 'table-states', 'integration-today'];
 
 async function open(page: Page, story: string, theme = 'light') {
   await page.goto(`/?story=${story}&theme=${theme}`);

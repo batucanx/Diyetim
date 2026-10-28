@@ -7,8 +7,10 @@ export interface ListItemProps {
   description?: ReactNode;
   /** Sol: ikon, avatar veya küçük görsel. */
   leading?: ReactNode;
-  /** Sağ: meta metin, değer, tag. */
+  /** Sağ: kısa değer (kcal, saat). Durum etiketi için `meta` kullanın; dar ekranda başlığı sıkıştırmaz. */
   trailing?: ReactNode;
+  /** Açıklamanın altında satır içi öğeler: StatusTag, SourceTag, küçük etiketler. */
+  meta?: ReactNode;
   /** Satırın tamamı tıklanabilir; sağda ok gösterilir. */
   onClick?: () => void;
   href?: string;
@@ -19,7 +21,7 @@ export interface ListItemProps {
 }
 
 /** Liste satırı. Uzun başlık iki satıra kadar kayar; açıklama alt satırda. */
-export function ListItem({ title, description, leading, trailing, onClick, href, selected, divider = true, className }: ListItemProps) {
+export function ListItem({ title, description, meta, leading, trailing, onClick, href, selected, divider = true, className }: ListItemProps) {
   const interactive = !!onClick || !!href;
   const content = (
     <>
@@ -27,6 +29,7 @@ export function ListItem({ title, description, leading, trailing, onClick, href,
       <span className="dy-list-item__text">
         <span className="dy-list-item__title">{title}</span>
         {description ? <span className="dy-list-item__desc">{description}</span> : null}
+        {meta ? <span className="dy-list-item__meta">{meta}</span> : null}
       </span>
       {trailing ? <span className="dy-list-item__trailing">{trailing}</span> : null}
       {interactive ? <Icon name="chevronRight" size="sm" className="dy-list-item__chevron" /> : null}

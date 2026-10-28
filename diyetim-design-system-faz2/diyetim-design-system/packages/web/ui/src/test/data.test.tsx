@@ -38,6 +38,11 @@ describe('Card ve ListItem', () => {
   });
 });
 
+it('ListItem meta alanı açıklamanın altında, satır butonunun adına dahil', () => {
+  render(<List><ListItem title="Öğle" description="Mercimek" trailing="540 kcal" meta={<span>Onay bekliyor</span>} onClick={() => {}} /></List>);
+  expect(screen.getByRole('button', { name: /Öğle.*Mercimek.*Onay bekliyor.*540 kcal/ })).toBeInTheDocument();
+});
+
 describe('Avatar', () => {
   it('Türkçe baş harfler', () => {
     expect(initials('elif yıldız')).toBe('EY');

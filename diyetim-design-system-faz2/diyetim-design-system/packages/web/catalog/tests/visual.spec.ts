@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 /** Sabit görsel referanslar: her hikâye × tema × (mobil 390, masaüstü 1280). */
-const STORIES = ['text', 'number', 'icon', 'surface', 'skeleton', 'button', 'textfield', 'select', 'choice', 'tags', 'alerts', 'states', 'tabs', 'shell', 'shell-collapsed', 'mobilenav', 'layers', 'cards', 'progress', 'table', 'table-states'];
+const STORIES = ['text', 'number', 'icon', 'surface', 'skeleton', 'button', 'textfield', 'select', 'choice', 'tags', 'alerts', 'states', 'tabs', 'shell', 'shell-collapsed', 'mobilenav', 'layers', 'cards', 'progress', 'table', 'table-states', 'integration-today'];
 const VIEWPORTS = [{ name: 'mobil', width: 390, height: 844 }, { name: 'masaustu', width: 1280, height: 900 }];
 
 for (const theme of ['light', 'dark'] as const) {

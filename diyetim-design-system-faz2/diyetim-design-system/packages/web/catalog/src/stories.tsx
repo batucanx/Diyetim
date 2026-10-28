@@ -64,6 +64,11 @@ function ToastDemo() {
   );
 }
 
+const PATIENT_NAV: NavItem[] = [
+  { id: 'today', label: 'Bugün', icon: 'home' }, { id: 'plan', label: 'Plan', icon: 'plan' },
+  { id: 'progress', label: 'İlerleme', icon: 'chart' }, { id: 'profile', label: 'Profil', icon: 'user' },
+];
+
 const NAV: NavItem[] = [
   { id: 'queue', label: 'Onay kuyruğu', icon: 'checkCircle', badge: 12, badgeLabel: '12 öğün onay bekliyor' },
   { id: 'patients', label: 'Danışanlar', icon: 'users' },
@@ -278,8 +283,8 @@ export const stories: Story[] = [
     <Stack gap="lg">
       <Card variant="hero"><CardHeader title="Bugünkü plan" subtitle="4 öğün · 1.800 kcal hedef" action={<Button size="sm" variant="tertiary">Düzenle</Button>} />
         <List label="Öğünler">
-          <ListItem leading={<Icon name="leaf" />} title="Kahvaltı" description="Yulaf, yoğurt, ceviz" trailing={<StatusTag kind="meal" status={'approved'} />} onClick={() => {}} />
-          <ListItem leading={<Icon name="flame" />} title="Öğle yemeği" description={LONG} trailing={<StatusTag kind="meal" status={'pending-review'} />} onClick={() => {}} />
+          <ListItem leading={<Icon name="leaf" />} title="Kahvaltı" description="Yulaf, yoğurt, ceviz" trailing="320 kcal" meta={<StatusTag kind="meal" status={'approved'} />} onClick={() => {}} />
+          <ListItem leading={<Icon name="flame" />} title="Öğle yemeği" description={LONG} trailing="540 kcal" meta={<StatusTag kind="meal" status={'pending-review'} />} onClick={() => {}} />
           <ListItem leading={<Icon name="clock" />} title="Akşam yemeği" description="Henüz kaydedilmedi" trailing="—" />
         </List>
       </Card>
@@ -318,6 +323,35 @@ export const stories: Story[] = [
       <DataTable caption="Boş" columns={COLS} rows={[]} rowKey={(r) => r.id} empty={{ title: 'Henüz danışan yok', description: 'Davet bağlantısı göndererek ilk danışanını ekle.' }} />
       <Stack direction="horizontal" gap="sm" wrap><Chip selected>Tahıl</Chip><Chip>Süt ürünleri</Chip><Chip disabled>Kuruyemiş</Chip><Chip icon="leaf" removable selected>Glutensiz</Chip></Stack>
     </Stack>
+  ) },
+  { id: 'integration-today', group: 'E', title: 'Entegrasyon: Bugün (yalnızca component birleşimi)', render: () => (
+    <div style={{ maxWidth: 'calc(var(--size-sidebar) * 1.6)', border: 'var(--border-width-hairline) solid var(--color-border-subtle)', borderRadius: 'var(--radius-xl)', overflow: 'hidden', background: 'var(--color-background)' }}>
+      <AppBar title="Bugün" actions={<IconButton icon="bell" label="Bildirimler" />} />
+      <div style={{ padding: 'var(--spacing-lg)' }}>
+        <Stack gap="lg">
+          <OfflineState pendingCount={2} onRetry={() => {}} />
+          <Card variant="hero">
+            <Stack direction="horizontal" gap="lg" align="center" wrap>
+              <ProgressRing value={859} max={1800} label="Kalori" valueText="859 / 1.800 kcal"><Stack gap="0" align="center"><NumberDisplay value={941} variant="numeric-lg" /><Text variant="caption" tone="muted">kcal kaldı</Text></Stack></ProgressRing>
+              <Stack gap="sm" style={{ flex: 1, minWidth: 'calc(var(--size-sidebar) * 0.5)' }}>
+                <ProgressBar value={142} max={220} label="Karbonhidrat" valueText="142 / 220 g" tone="carb" showLabel size="sm" />
+                <ProgressBar value={68} max={120} label="Protein" valueText="68 / 120 g" tone="protein" showLabel size="sm" />
+                <ProgressBar value={41} max={60} label="Yağ" valueText="41 / 60 g" tone="fat" showLabel size="sm" />
+              </Stack>
+            </Stack>
+          </Card>
+          <Card><CardHeader title="Öğünler" subtitle="2 / 4 kaydedildi" />
+            <List label="Bugünkü öğünler">
+              <ListItem leading={<Icon name="leaf" />} title="Kahvaltı" description="Yulaf, yoğurt, ceviz" trailing="320 kcal" meta={<StatusTag kind="meal" status="approved" />} onClick={() => {}} />
+              <ListItem leading={<Icon name="flame" />} title="Öğle yemeği" description="Mercimek çorbası, salata" trailing="540 kcal" meta={<StatusTag kind="meal" status="pending-review" />} onClick={() => {}} />
+              <ListItem leading={<Icon name="clock" />} title="Akşam yemeği" description="Somon, bulgur" trailing="19:00" meta={<StatusTag kind="meal" status="planned" />} onClick={() => {}} />
+            </List>
+          </Card>
+          <StatCard label="Kilo" value={null} visibility="hidden" />
+        </Stack>
+      </div>
+      <BottomNavigation items={PATIENT_NAV} activeId="today" centerAction={{ icon: 'camera', label: 'Öğün fotoğrafı ekle', onClick: () => {} }} />
+    </div>
   ) },
   { id: 'dialog-open', group: 'D', title: 'Dialog (açık)', render: () => <DialogDemo initialOpen /> },
 ];

@@ -2,6 +2,8 @@ import 'package:dy_ui/dy_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 
+import 'integration_today.dart';
+
 void main() => runApp(const DyGallery());
 
 const _long = 'Diyetisyenime bugünkü tüm öğünlerimi onay için gönder; ğüşıöç İ harfleri kırpılmamalı';
@@ -161,9 +163,79 @@ class DyGallery extends StatelessWidget {
                 ]))),
           ]),
         ]),
+        WidgetbookCategory(name: 'E · Veri sunumu', children: [
+          WidgetbookComponent(name: 'DyCard · DyListItem', useCases: [
+            WidgetbookUseCase(name: 'Plan kartı', builder: (context) => _pad(DyCard(variant: DyCardVariant.hero, child: Column(children: [
+                  DyCardHeader(title: 'Bugünkü plan', subtitle: '4 öğün · 1.800 kcal hedef', action: DyButton(label: 'Düzenle', size: DyButtonSize.sm, variant: DyButtonVariant.secondary, onPressed: () {})),
+                  DyList(children: [
+                    DyListItem(leading: const DyIcon(DyIcons.leaf), title: 'Kahvaltı', description: 'Yulaf, yoğurt, ceviz', trailing: DyStatusTag(DyMealStatus.approved.style), onTap: () {}),
+                    DyListItem(leading: const DyIcon(DyIcons.flame), title: 'Öğle yemeği', description: 'Diyetisyenime bugünkü tüm öğünlerimi onay için gönder; ğüşıöç İİ', trailing: DyStatusTag(DyMealStatus.pendingReview.style), onTap: () {}),
+                    const DyListItem(leading: DyIcon(DyIcons.clock), title: 'Akşam yemeği', description: 'Henüz kaydedilmedi', trailing: Text('—')),
+                  ]),
+                ])))),
+            WidgetbookUseCase(name: 'Etkileşimli ve seçili', builder: (context) => _pad(DyStack(gap: DySpacing.md, children: [
+                  DyCard(onTap: () {}, semanticLabel: 'Elif Yıldız', child: const Row(spacing: DySpacing.md, children: [DyAvatar(name: 'Elif Yıldız', verified: true, decorative: true), Text('Elif Yıldız')])),
+                  DyCard(selected: true, variant: DyCardVariant.raised, child: const Text('Seçili kart')),
+                  DyCard(onTap: () {}, state: DyComponentState.locked, lockedReason: 'Bu tahlili görme yetkin yok', child: const Text('Kilitli kart')),
+                ]))),
+          ]),
+          WidgetbookComponent(name: 'DyAvatar · DyAvatarGroup', useCases: [
+            WidgetbookUseCase(name: 'Boyutlar', builder: (context) => _pad(Wrap(spacing: DySpacing.md, runSpacing: DySpacing.md, crossAxisAlignment: WrapCrossAlignment.center, children: [
+                  for (final sz in DyAvatarSize.values) DyAvatar(name: 'İsmail Işık', size: sz),
+                  const DyAvatar(name: 'Zeynep Kaya', verified: true, size: DyAvatarSize.lg),
+                  const DyAvatarGroup(label: 'Bugünkü randevular', people: [DyAvatarPerson(name: 'Elif Yıldız'), DyAvatarPerson(name: 'Batuhan Kaya'), DyAvatarPerson(name: 'Şule Demir'), DyAvatarPerson(name: 'Ömer Çelik'), DyAvatarPerson(name: 'Ayşe Er')]),
+                ]))),
+          ]),
+          WidgetbookComponent(name: 'DyProgressBar · DyProgressRing', useCases: [
+            WidgetbookUseCase(name: 'Makro ve kalori', builder: (context) {
+              final v = context.knobs.double.slider(label: 'Kalori', initialValue: 859, min: 0, max: 2400);
+              return _pad(DyStack(gap: DySpacing.lg, children: [
+                DyProgressRing(value: v, max: 1800, label: 'Kalori', valueText: '${DyFormat.number(v, maxFractionDigits: 0)} / 1.800 kcal', child: Column(mainAxisSize: MainAxisSize.min, children: [DyNumber(1800 - v < 0 ? 0 : 1800 - v, style: DyTextStyle.numericLg, fractionDigits: 0), const Text('kcal kaldı')])),
+                const DyProgressBar(value: 142, max: 220, label: 'Karbonhidrat', valueText: '142 / 220 g', tone: DyProgressTone.carb, showLabel: true),
+                const DyProgressBar(value: 68, max: 120, label: 'Protein', valueText: '68 / 120 g', tone: DyProgressTone.protein, showLabel: true),
+                const DyProgressBar(value: 71, max: 60, label: 'Yağ', valueText: '71 / 60 g · hedefin üstünde', tone: DyProgressTone.fat, showLabel: true),
+                const DyProgressBar(value: null, label: 'Fotoğraf yükleniyor'),
+              ]));
+            }),
+          ]),
+          WidgetbookComponent(name: 'DyStatCard', useCases: [
+            WidgetbookUseCase(name: 'Metrikler', builder: (context) => _pad(const DyStack(gap: DySpacing.md, children: [
+                  DyStatCard(label: 'Plana uyum', value: 86, unit: '%', delta: 4, deltaUnit: 'puan', deltaIntent: DyDeltaIntent.increaseIsGood, deltaContext: 'geçen haftaya göre'),
+                  DyStatCard(label: 'Onay bekleyen öğün', value: 12, delta: -5, deltaIntent: DyDeltaIntent.decreaseIsGood, deltaContext: 'dünden', icon: DyIcons.clock),
+                  DyStatCard(label: 'Kilo', value: null, visibility: DyVisibility.hidden),
+                ]))),
+          ]),
+          WidgetbookComponent(name: 'Entegrasyon: Bugün', useCases: [
+            WidgetbookUseCase(name: 'A–E birlikte (ekran tasarımı değil)', builder: (context) => IntegrationToday(offline: context.knobs.boolean(label: 'Çevrimdışı', initialValue: true))),
+          ]),
+          WidgetbookComponent(name: 'DyChip · DyFilterChips', useCases: [
+            WidgetbookUseCase(name: 'Filtreler', builder: (context) => _pad(const _FilterDemo())),
+          ]),
+        ]),
       ],
     );
   }
+}
+
+class _FilterDemo extends StatefulWidget {
+  const _FilterDemo();
+  @override
+  State<_FilterDemo> createState() => _FilterDemoState();
+}
+
+class _FilterDemoState extends State<_FilterDemo> {
+  Set<String> values = {'a'};
+  @override
+  Widget build(BuildContext context) => DyStack(gap: DySpacing.md, children: [
+        DyFilterChips(label: 'Durum', values: values, onChanged: (v) => setState(() => values = v), options: const [
+          DyFilterOption(value: 'a', label: 'Dikkat gerektiren', count: 4), DyFilterOption(value: 'p', label: 'Onay bekleyen', count: 12), DyFilterOption(value: 'n', label: 'Yeni'),
+        ]),
+        Wrap(spacing: DySpacing.sm, children: [
+          DyChip(label: 'Tahıl', selected: true, onSelected: (_) {}),
+          DyChip(label: 'Kuruyemiş', state: DyComponentState.disabled, onSelected: (_) {}),
+          DyChip(label: 'Glutensiz', icon: DyIcons.leaf, selected: true, onRemove: () {}),
+        ]),
+      ]);
 }
 
 class _TabsDemo extends StatefulWidget {

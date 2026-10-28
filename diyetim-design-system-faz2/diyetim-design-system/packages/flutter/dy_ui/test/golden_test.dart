@@ -40,7 +40,23 @@ void main() {
         DySegmentedControl<String>(label: 'Dönem', value: 'w', onChanged: (_) {}, segments: const [DySegment(value: 'd', label: 'Gün'), DySegment(value: 'w', label: 'Hafta'), DySegment(value: 'm', label: 'Ay')]),
       ]);
 
-  final groups = {'buttons': buttons, 'fields': fields, 'choices': choices};
+  Widget data() => Column(crossAxisAlignment: CrossAxisAlignment.stretch, spacing: DySpacing.md, children: [
+        DyCard(variant: DyCardVariant.hero, child: DyList(children: [
+          DyListItem(leading: const DyIcon(DyIcons.leaf), title: 'Kahvaltı', description: 'Yulaf, yoğurt, ceviz', trailing: DyStatusTag(DyMealStatus.approved.style), onTap: () {}),
+          DyListItem(leading: const DyIcon(DyIcons.flame), title: 'Öğle yemeği', description: 'Onay bekliyor', trailing: DyStatusTag(DyMealStatus.pendingReview.style), onTap: () {}),
+        ])),
+        const Row(spacing: DySpacing.md, children: [
+          DyProgressRing(value: 859, max: 1800, label: 'Kalori', size: DyProgressRingSize.md, child: Text('%48')),
+          DyAvatar(name: 'Zeynep Kaya', verified: true, size: DyAvatarSize.lg),
+          DyAvatarGroup(label: 'Randevular', people: [DyAvatarPerson(name: 'Elif Yıldız'), DyAvatarPerson(name: 'Şule Demir'), DyAvatarPerson(name: 'İsmail Işık'), DyAvatarPerson(name: 'Ömer Çelik')]),
+        ]),
+        const DyProgressBar(value: 142, max: 220, label: 'Karbonhidrat', valueText: '142 / 220 g', tone: DyProgressTone.carb, showLabel: true),
+        const DyProgressBar(value: 68, max: 120, label: 'Protein', valueText: '68 / 120 g', tone: DyProgressTone.protein, showLabel: true),
+        const DyStatCard(label: 'Onay bekleyen öğün', value: 12, delta: -5, deltaIntent: DyDeltaIntent.decreaseIsGood, deltaContext: 'dünden', icon: DyIcons.clock),
+        DyFilterChips(label: 'Durum', options: const [DyFilterOption(value: 'a', label: 'Dikkat', count: 4), DyFilterOption(value: 'n', label: 'Yeni')], values: const {'a'}, onChanged: (_) {}),
+      ]);
+
+  final groups = {'buttons': buttons, 'fields': fields, 'choices': choices, 'data': data};
   for (final g in groups.entries) {
     for (final b in Brightness.values) {
       for (final scale in [1.0, 2.0]) {
