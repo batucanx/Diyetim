@@ -21,6 +21,7 @@ Mobil ve masaüstü aynı dili paylaşır ama ölçeklenmiş kopyalar değildir:
 - **TopBar** `({ title, breadcrumb?, actions?, children? })`: sayfanın tek `h1`'i.
 - **Breadcrumb** `({ items: { label, href?, onClick? }[] })`: son öğe `aria-current="page"`; dar ekranda yalnızca son iki seviye.
 - **AppBar** `({ title, onBack?, onMenu?, actions? })` · Flutter `DyAppBar(title, onBack, actions, large)`.
+  - `large` (Flutter): `Scaffold.appBar` içinde sabit yükseklik bildirir (h1 satır yüksekliği + `spacing.md`); metin ölçeği büyüyünce taşar. Metin ölçeklenen ekranlarda büyük başlık kaydırılan içeriğe konmalı. Faz 3: kayan büyük başlık (sliver) bileşeni.
 - **BottomNavigation** `({ items, activeId, onNavigate?, centerAction? })` · Flutter `DyBottomNavigation(destinations, selectedIndex, onSelected, centerAction, centerActionLabel, onCenterAction)`.
 - **Tabs** `({ label, items: { value, label, content, count?, countLabel?, disabled? }[], value?, onChange? })` · Flutter `DyTabs(label, tabs, selectedIndex, onSelected)`.
 - **Dialog** `({ open, onClose, title, description?, children?, footer?, sheetOnCompact=true, dismissible=true, initialFocusRef?, size })`.

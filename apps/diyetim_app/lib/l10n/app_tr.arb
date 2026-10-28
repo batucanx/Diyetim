@@ -1,0 +1,59 @@
+{
+  "@@locale": "tr",
+  "appTitle": "Diyetim",
+
+  "todayTitle": "Bugün",
+  "todayLoadingLabel": "Bugünün planı",
+  "todaySearchFoods": "Besin ara",
+
+  "dietitianNoteTitle": "Diyetisyeninden not",
+  "@dietitianNoteTitle": { "description": "Bugün ekranındaki ilk bölüm (karar 0002)" },
+  "noteReadMore": "Devamını oku",
+  "noteReadLess": "Daha az göster",
+  "timeJustNow": "az önce",
+  "timeMinutesAgo": "{minutes} dk önce",
+  "@timeMinutesAgo": { "placeholders": { "minutes": { "type": "int" } } },
+  "timeHoursAgo": "{hours} saat önce",
+  "@timeHoursAgo": { "placeholders": { "hours": { "type": "int" } } },
+  "timeYesterday": "dün",
+  "timeDaysAgo": "{days} gün önce",
+  "@timeDaysAgo": { "placeholders": { "days": { "type": "int" } } },
+
+  "mealsTitle": "Öğünler",
+  "mealsEmptyTitle": "Bugün için öğün yok",
+  "mealsEmptyDescription": "Diyetisyenin henüz bugünün planını yayınlamadı.",
+  "mealCaloriesLabel": "{meal} kalorisi",
+  "@mealCaloriesLabel": { "placeholders": { "meal": { "type": "String" } } },
+  "unitKcal": "kcal",
+  "unitGram": "g",
+
+  "foodSearchTitle": "Besin ara",
+  "foodSearchFieldLabel": "Besin ara",
+  "foodSearchPlaceholder": "Mercimek, yulaf, tavuk…",
+  "foodSearchHint": "Aramak için en az 2 harf yaz.",
+  "foodSearchHintTitle": "Ne yedin?",
+  "foodSearchResultsLabel": "Arama sonuçları",
+  "foodSearchResultCount": "{count} sonuç",
+  "@foodSearchResultCount": { "placeholders": { "count": { "type": "int" } } },
+  "foodSearchNoResultsTitle": "“{query}” için sonuç yok",
+  "@foodSearchNoResultsTitle": { "placeholders": { "query": { "type": "String" } } },
+  "foodSearchNoResultsDescription": "Farklı bir yazım dene ya da daha genel bir kelimeyle ara.",
+  "foodSearchQuotaTitle": "Besin arama şu an yoğun",
+  "foodSearchQuotaDescription": "Çok kişi aynı anda arıyor. Biraz sonra tekrar dene.",
+  "foodServingPer": "{serving} başına",
+  "@foodServingPer": { "placeholders": { "serving": { "type": "String" } } },
+  "foodMacros": "K {carb} g · P {protein} g · Y {fat} g",
+  "@foodMacros": {
+    "description": "Karbonhidrat, protein, yağ kısaltmaları",
+    "placeholders": { "carb": { "type": "String" }, "protein": { "type": "String" }, "fat": { "type": "String" } }
+  },
+  "foodMacrosSemantic": "Karbonhidrat {carb} gram, protein {protein} gram, yağ {fat} gram",
+  "@foodMacrosSemantic": {
+    "placeholders": { "carb": { "type": "String" }, "protein": { "type": "String" }, "fat": { "type": "String" } }
+  },
+  "foodLoadMore": "Daha fazla göster",
+  "attributionOpen": "{text} (bağlantı)",
+  "@attributionOpen": { "placeholders": { "text": { "type": "String" } } },
+
+  "retry": "Tekrar dene"
+}

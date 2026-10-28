@@ -1,0 +1,207 @@
+openapi: 3.1.0
+info:
+  title: Diyetim API (istemci sözleşmesi)
+  version: 0.1.0
+  description: |
+    Danışan uygulamasının backend ile sözleşmesi. Besin verisinin asıl kaynağı (FatSecret) istemciye
+    sızmaz; yalnız `attribution` alanı sağlayıcının atıf koşulunu taşır. Bkz. docs/decisions/0001.
+    Durum ve kaynak değerleri tasarım sisteminin `wire` adlarıdır (spec/contracts.json).
+    Sayılar ham değerdir (nokta ondalık); biçimlendirme istemcide tr-TR ile yapılır.
+servers:
+  - url: https://api.diyetim.example
+security:
+  - bearer: []
+
+paths:
+  /api/today:
+    get:
+      summary: Bugünün diyetisyen notu ve öğünleri
+      parameters:
+        - name: date
+          in: query
+          description: Yerel tarih (varsayılan danışanın bugünü)
+          schema: { type: string, format: date }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Today' }
+        '401': { $ref: '#/components/responses/Error' }
+
+  /api/foods/search:
+    get:
+      summary: Besin arama
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema: { type: string, minLength: 2, maxLength: 100 }
+        - name: page
+          in: query
+          description: 0'dan başlar
+          schema: { type: integer, minimum: 0, default: 0 }
+        - name: pageSize
+          in: query
+          schema: { type: integer, minimum: 1, maximum: 50, default: 20 }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/FoodSearchPage' }
+        '400': { $ref: '#/components/responses/Error' }
+        '503':
+          description: Sağlayıcı kotası doldu (`QUOTA_EXCEEDED`) ya da sağlayıcıya ulaşılamıyor (`PROVIDER_UNAVAILABLE`)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+
+  /api/foods/{foodId}:
+    get:
+      summary: Besin ayrıntısı ve porsiyonları
+      parameters:
+        - name: foodId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Food' }
+        '404': { $ref: '#/components/responses/Error' }
+        '503': { $ref: '#/components/responses/Error' }
+
+components:
+  securitySchemes:
+    bearer: { type: http, scheme: bearer }
+
+  responses:
+    Error:
+      description: Hata
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+
+  schemas:
+    Today:
+      type: object
+      required: [date, meals]
+      properties:
+        date: { type: string, format: date }
+        dietitianNote:
+          description: Yoksa null; istemci bölümü çizmez.
+          oneOf: [{ $ref: '#/components/schemas/DietitianNote' }, { type: 'null' }]
+        meals:
+          type: array
+          items: { $ref: '#/components/schemas/Meal' }
+
+    DietitianNote:
+      type: object
+      required: [id, text, createdAt, author]
+      properties:
+        id: { type: string }
+        text: { type: string, maxLength: 2000 }
+        createdAt: { type: string, format: date-time }
+        author:
+          type: object
+          required: [name]
+          properties:
+            name: { type: string }
+            avatarUrl: { type: [string, 'null'], format: uri }
+            verified: { type: boolean, default: false }
+
+    Meal:
+      type: object
+      required: [id, name, status, items]
+      properties:
+        id: { type: string }
+        name: { type: string, examples: [Kahvaltı] }
+        time: { type: [string, 'null'], pattern: '^\d{2}:\d{2}$', examples: ['08:30'] }
+        status:
+          type: string
+          enum: [planned, logged, pending-review, approved, needs-correction, entered-by-dietitian, skipped, cheat]
+        caloriesVisibility:
+          description: Diyetisyen kalori görünürlüğünü kapattıysa `hidden`; o zaman `calories` hiç gönderilmez (gizli değer istemciye inmez).
+          type: string
+          enum: [visible, hidden]
+          default: visible
+        calories:
+          description: kcal. `visible` iken yoksa değer henüz bilinmiyor demektir ("—").
+          type: number
+        items:
+          type: array
+          items:
+            type: object
+            required: [name]
+            properties:
+              name: { type: string }
+              source: { type: string, enum: [patient, dietitian, ai, verified] }
+
+    FoodSearchPage:
+      type: object
+      required: [query, page, pageSize, totalResults, items]
+      properties:
+        query: { type: string }
+        page: { type: integer }
+        pageSize: { type: integer }
+        totalResults: { type: integer }
+        items:
+          type: array
+          items: { $ref: '#/components/schemas/FoodSummary' }
+        attribution: { $ref: '#/components/schemas/Attribution' }
+
+    FoodSummary:
+      type: object
+      required: [id, name, defaultServing]
+      properties:
+        id: { type: string, description: 'Sağlayıcıdan bağımsız kimlik (ör. "fs:33691")' }
+        name: { type: string }
+        brand: { type: [string, 'null'] }
+        defaultServing: { $ref: '#/components/schemas/Serving' }
+
+    Food:
+      allOf:
+        - $ref: '#/components/schemas/FoodSummary'
+        - type: object
+          required: [servings]
+          properties:
+            servings:
+              type: array
+              minItems: 1
+              items: { $ref: '#/components/schemas/Serving' }
+            attribution: { $ref: '#/components/schemas/Attribution' }
+
+    Serving:
+      type: object
+      required: [id, description, calories, carbohydrate, protein, fat]
+      properties:
+        id: { type: string }
+        description: { type: string, examples: ['1 kase (200 g)'] }
+        metricAmount: { type: [number, 'null'], examples: [200] }
+        metricUnit: { type: [string, 'null'], enum: [g, ml, null] }
+        calories: { type: number, description: kcal }
+        carbohydrate: { type: number, description: g }
+        protein: { type: number, description: g }
+        fat: { type: number, description: g }
+
+    Attribution:
+      description: Sağlayıcı atıf istiyorsa dolu; istemci metni bağlantı olarak gösterir. Premier'de null.
+      oneOf:
+        - type: 'null'
+        - type: object
+          required: [text, url]
+          properties:
+            text: { type: string, examples: [Powered by fatsecret] }
+            url: { type: string, format: uri }
+
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          type: string
+          enum: [INVALID_QUERY, NOT_FOUND, UNAUTHORIZED, QUOTA_EXCEEDED, PROVIDER_UNAVAILABLE, INTERNAL]
+        message: { type: string, description: Geliştirici içindir; kullanıcıya gösterilmez. }

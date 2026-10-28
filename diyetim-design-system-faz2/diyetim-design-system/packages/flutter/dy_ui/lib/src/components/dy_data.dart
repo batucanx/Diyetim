@@ -181,7 +181,7 @@ class DyListItem extends StatelessWidget {
                 if (description != null)
                   Text(description!, maxLines: maxDescriptionLines, overflow: TextOverflow.ellipsis, style: dy.text(DyTextStyle.bodySm, tone: DyTextTone.secondary)),
                 if (meta != null && meta!.isNotEmpty)
-                  Padding(padding: const EdgeInsets.only(top: DySpacing.xxs), child: Wrap(spacing: DySpacing.xs, runSpacing: DySpacing.xs, children: meta!)),
+                  Padding(padding: const EdgeInsets.only(top: DySpacing.xxs), child: Wrap(spacing: DySpacing.xs, runSpacing: DySpacing.xs, crossAxisAlignment: WrapCrossAlignment.center, children: meta!)),
               ]),
             ),
             if (trailing != null)

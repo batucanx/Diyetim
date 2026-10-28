@@ -19,8 +19,16 @@ class DyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool large;
   final bool bordered;
 
+  /// Büyük başlık yüksekliği h1 satır yüksekliğinden türetilir (önceden sabit 32 px'ti, h1 34 px + boşluk 12 px taşıyordu).
+  /// Sınır: PreferredSizeWidget sabit yükseklik bildirir; metin ölçeği büyüyünce `Scaffold.appBar` içinde büyük başlık taşar.
+  /// Ölçeklenen ekranlarda büyük başlık kaydırılan içeriğe konmalı (bkz. docs/components/Navigation.md).
+  static final double _largeTitleHeight = () {
+    final h1 = DyTypeScale.compact(DyTextStyle.h1);
+    return (h1.fontSize! * h1.height!).ceilToDouble() + DySpacing.md;
+  }();
+
   @override
-  Size get preferredSize => Size.fromHeight(large ? DySize.appBar + DySpacing.xl3 : DySize.appBar);
+  Size get preferredSize => Size.fromHeight(large ? DySize.appBar + _largeTitleHeight : DySize.appBar);
 
   @override
   Widget build(BuildContext context) {

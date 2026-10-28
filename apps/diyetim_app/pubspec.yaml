@@ -1,0 +1,39 @@
+name: diyetim_app
+description: "Diyetim danışan uygulaması."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.13.4
+
+dependencies:
+  dy_ui:
+    path: ../../diyetim-design-system-faz2/diyetim-design-system/packages/flutter/dy_ui
+  dio: ^5.11.1
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^3.4.3
+  freezed_annotation: ^3.1.0
+  get_it: ^9.3.0
+  go_router: ^18.1.1
+  injectable: ^3.0.0
+  riverpod_annotation: ^4.0.7
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  url_launcher: ^6.3.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  dy_testing:
+    path: ../../diyetim-design-system-faz2/diyetim-design-system/packages/flutter/dy_testing
+  flutter_lints: ^6.0.0
+  build_runner: ^2.16.1
+  riverpod_generator: ^4.0.9
+  injectable_generator: ^3.1.3
+  freezed: ^4.0.3
+
+flutter:
+  generate: true
+  uses-material-design: true

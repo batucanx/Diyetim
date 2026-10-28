@@ -1,0 +1,3 @@
+tags:
+  golden:
+    description: "Görsel referanslar. Üretmek için: flutter test --update-goldens --tags golden"

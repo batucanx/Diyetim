@@ -107,7 +107,8 @@ class DyInputFrame extends StatelessWidget {
         duration: dy.duration(DyDuration.fast),
         curve: DyEasing.standard,
         constraints: BoxConstraints(minHeight: minHeight),
-        padding: EdgeInsets.symmetric(horizontal: DySpacing.lg, vertical: multiline ? DySpacing.sm : DySpacing.xs),
+        // Tek satırda dikey boşluk yok: metin alanı çerçevenin tüm yüksekliğini kaplar (dokunma ve semantik alanı = çerçeve).
+        padding: EdgeInsets.symmetric(horizontal: DySpacing.lg, vertical: multiline ? DySpacing.sm : 0),
         decoration: BoxDecoration(
           color: bg,
           borderRadius: BorderRadius.circular(DyRadius.md),
@@ -196,6 +197,12 @@ class DyTextField extends StatefulWidget {
 }
 
 class _DyTextFieldState extends State<DyTextField> {
+  /// Tek satırlı alanın çerçeveyi (controlLg) kenarlık içinde tam dolduracağı dikey boşluk: (52 − 2 × 1,5 − body satırı) / 2.
+  static final double _singleLinePadding = () {
+    final body = DyTypeScale.compact(DyTextStyle.body);
+    return (DySize.controlLg - 2 * DyBorderWidth.widthStrong - body.fontSize! * body.height!) / 2;
+  }();
+
   late final TextEditingController _controller = widget.controller ?? TextEditingController(text: widget.initialValue);
   late final FocusNode _focus = widget.focusNode ?? FocusNode();
   bool _focused = false;
@@ -255,7 +262,7 @@ class _DyTextFieldState extends State<DyTextField> {
       decoration: InputDecoration(
         isCollapsed: true,
         border: InputBorder.none,
-        contentPadding: const EdgeInsets.symmetric(vertical: DySpacing.sm),
+        contentPadding: EdgeInsets.symmetric(vertical: multiline ? DySpacing.sm : _singleLinePadding),
         hintText: widget.placeholder,
         hintStyle: dy.text(DyTextStyle.body, tone: DyTextTone.muted),
       ),

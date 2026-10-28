@@ -1,0 +1,16 @@
+name: dy_testing
+description: Diyetim test yardımcıları (yalnız dev_dependency). Gerçek Nunito yükleme ve token renkleriyle kontrast ölçümü.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.6.0
+  flutter: ">=3.27.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_test:
+    sdk: flutter
+  dy_tokens:
+    path: ../dy_tokens

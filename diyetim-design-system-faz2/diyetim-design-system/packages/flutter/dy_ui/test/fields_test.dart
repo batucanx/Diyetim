@@ -95,4 +95,15 @@ void main() {
       h.dispose();
     }
   });
+
+  testWidgets('tek satırlı alan: metin düğümü çerçevenin tamamı (dokunma hedefi kılavuzu)', (tester) async {
+    final h = tester.ensureSemantics();
+    await pumpDy(tester, const Column(children: [DySearchField(label: 'Besin ara', placeholder: 'Yulaf'), DyTextField(label: 'Ad')]));
+    final frame = tester.getSize(find.byType(DyInputFrame).first);
+    expect(frame.height, DySize.controlLg, reason: 'görsel yükseklik değişmez');
+    expect(tester.getSize(find.byType(TextField).first).height, frame.height - 2 * DyBorderWidth.widthStrong, reason: 'alan kenarlık içini tam doldurur');
+    await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
+    await expectLater(tester, meetsGuideline(iOSTapTargetGuideline));
+    h.dispose();
+  });
 }

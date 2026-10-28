@@ -101,4 +101,15 @@ void main() {
     await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
     h.dispose();
   });
+
+  testWidgets('AppBar large: Scaffold.appBar yuvasında %100 ölçekte taşmaz (iki tema)', (tester) async {
+    for (final b in Brightness.values) {
+      await tester.pumpWidget(MaterialApp(
+        theme: b == Brightness.light ? DyTheme.light() : DyTheme.dark(),
+        home: Scaffold(appBar: DyAppBar(title: 'Bugün', large: true, actions: [DyIconButton(icon: DyIcons.search, label: 'Ara', onPressed: () {})]), body: const SizedBox()),
+      ));
+      expect(tester.takeException(), isNull);
+      expect(find.text('Bugün'), findsOneWidget);
+    }
+  });
 }
