@@ -4,6 +4,8 @@ import {
   Textarea, Select, MultiSelect, Checkbox, RadioGroup, Switch, SegmentedControl, type SelectOption,
   Tag, StatusTag, SourceTag, Badge, Tooltip, Alert, Banner, ToastProvider, useToast, EmptyState, ErrorState, OfflineState, LoadingRegion,
   Dialog, ConfirmDialog, Popover, Menu, Tabs, Sidebar, TopBar, Breadcrumb, AppBar, BottomNavigation, type NavItem,
+  Card, CardHeader, List, ListItem, Avatar, AvatarGroup, ProgressBar, ProgressRing, StatCard, Chip, DataTable, Pagination, FilterBar,
+  type Column, type SortState,
 } from '@diyetim/ui';
 import { MealStatus, AppointmentStatus, LabValueStatus } from '@diyetim/tokens';
 
@@ -17,6 +19,39 @@ const meals: SelectOption[] = [
 function NumberFieldDemo() {
   const [v, setV] = useState<number | null>(150);
   return <NumberField label="Gramaj" unit="g" value={v} onChange={setV} min={0} max={1000} step={10} description="Hızlı seçim: 50 · 100 · 150 · 200 g" />;
+}
+
+type Row = { id: string; name: string; status: (typeof MealStatus)[number]; adherence: number; last: string };
+const ROWS: Row[] = [
+  { id: '1', name: 'Elif Yıldız', status: 'pending-review', adherence: 86, last: '12:45' },
+  { id: '2', name: 'Batuhan Kaya', status: 'needs-correction', adherence: 72, last: '09:10' },
+  { id: '3', name: 'Şule Demir-Öztürkoğlu', status: 'approved', adherence: 91, last: '13:20' },
+  { id: '4', name: 'İsmail Işık', status: 'logged', adherence: 64, last: 'Dün' },
+];
+const COLS: Column<Row>[] = [
+  { key: 'name', header: 'Danışan', sortable: true, cell: (r) => <Stack direction="horizontal" gap="sm" align="center"><Avatar name={r.name} size="sm" />{r.name}</Stack> },
+  { key: 'status', header: 'Son öğün', cell: (r) => <StatusTag kind="meal" status={r.status} /> },
+  { key: 'adherence', header: 'Uyum', numeric: true, sortable: true, cell: (r) => `%${r.adherence}` },
+  { key: 'last', header: 'Son kayıt', numeric: true, hideOnCompact: true },
+];
+
+function TableDemo({ state }: { state?: 'loading' | 'error' }) {
+  const [sort, setSort] = useState<SortState>({ key: 'adherence', direction: 'descending' });
+  const [sel, setSel] = useState<Set<string>>(new Set(['2']));
+  const [page, setPage] = useState(3);
+  const [q, setQ] = useState('');
+  const [f, setF] = useState<string[]>(['attention']);
+  const rows = [...ROWS].sort((a, b) => !sort ? 0 : (sort.direction === 'ascending' ? 1 : -1) * (sort.key === 'adherence' ? a.adherence - b.adherence : a.name.localeCompare(b.name, 'tr')));
+  return (
+    <Stack gap="lg">
+      <FilterBar search={{ label: 'Danışan ara', value: q, onChange: setQ, placeholder: 'Ad, telefon veya e-posta' }}
+        filters={{ label: 'Durum', options: [{ value: 'attention', label: 'Dikkat gerektiren', count: 4 }, { value: 'pending', label: 'Onay bekleyen', count: 12 }, { value: 'new', label: 'Yeni' }], value: f, onChange: setF }}
+        onClearAll={() => { setQ(''); setF([]); }} resultText="4 danışan" extra={<Button size="sm" variant="secondary" iconStart="plus">Davet et</Button>} />
+      <DataTable caption="Danışanlar" columns={COLS} rows={state ? [] : rows} rowKey={(r) => r.id} rowLabel={(r) => r.name} sort={sort} onSortChange={setSort}
+        selected={sel} onSelectedChange={setSel} onRowClick={() => {}} state={state} errorKind="network" onRetry={() => {}} />
+      <Pagination page={page} pageCount={12} onChange={setPage} summary="41–60 / 248 danışan" />
+    </Stack>
+  );
 }
 
 function ToastDemo() {
@@ -53,7 +88,7 @@ function DialogDemo({ initialOpen = false, confirm = false }: { initialOpen?: bo
   );
 }
 
-export interface Story { id: string; group: 'A' | 'B' | 'C' | 'D'; title: string; render: () => ReactNode }
+export interface Story { id: string; group: 'A' | 'B' | 'C' | 'D' | 'E'; title: string; render: () => ReactNode }
 
 export const stories: Story[] = [
   { id: 'text', group: 'A', title: 'Text', render: () => (
@@ -237,6 +272,51 @@ export const stories: Story[] = [
       <DialogDemo /><DialogDemo confirm />
       <Popover label="Filtreler" trigger={<Button variant="tertiary" iconStart="filter">Filtrele</Button>}>{(close) => (<Stack gap="md"><Select label="Öğün tipi" options={meals} /><Button onClick={close}>Uygula</Button></Stack>)}</Popover>
       <Menu label="Öğün eylemleri" trigger={<Button variant="ghost" iconEnd="chevronDown">Eylemler</Button>} items={[{ id: 'e', label: 'Düzenle', icon: 'note', onSelect: () => {} }, { id: 'c', label: 'Kopyala', disabled: true, onSelect: () => {} }, { id: 'x', label: 'Sil', icon: 'x', destructive: true, onSelect: () => {} }]} />
+    </Stack>
+  ) },
+  { id: 'cards', group: 'E', title: 'Card, ListItem, Avatar', render: () => (
+    <Stack gap="lg">
+      <Card variant="hero"><CardHeader title="Bugünkü plan" subtitle="4 öğün · 1.800 kcal hedef" action={<Button size="sm" variant="tertiary">Düzenle</Button>} />
+        <List label="Öğünler">
+          <ListItem leading={<Icon name="leaf" />} title="Kahvaltı" description="Yulaf, yoğurt, ceviz" trailing={<StatusTag kind="meal" status={'approved'} />} onClick={() => {}} />
+          <ListItem leading={<Icon name="flame" />} title="Öğle yemeği" description={LONG} trailing={<StatusTag kind="meal" status={'pending-review'} />} onClick={() => {}} />
+          <ListItem leading={<Icon name="clock" />} title="Akşam yemeği" description="Henüz kaydedilmedi" trailing="—" />
+        </List>
+      </Card>
+      <Stack direction="horizontal" gap="md" wrap>
+        <Card interactive onClick={() => {}} aria-label="Elif Yıldız danışan kartı"><Stack direction="horizontal" gap="md" align="center"><Avatar name="Elif Yıldız" verified /><Stack gap="2xs"><Text variant="h4">Elif Yıldız</Text><Text variant="caption" tone="muted">3 öğün onay bekliyor</Text></Stack></Stack></Card>
+        <Card variant="raised" selected><Stack direction="horizontal" gap="md" align="center"><AvatarGroup label="Bugünkü randevular" people={[{ name: 'Elif Yıldız' }, { name: 'Batuhan Kaya' }, { name: 'Şule Demir' }, { name: 'İsmail Işık' }, { name: 'Ömer Çelik' }]} max={3} /><Text variant="body-sm" tone="secondary">5 randevu</Text></Stack></Card>
+      </Stack>
+      <Stack direction="horizontal" gap="sm" wrap><Avatar name="Zeynep Kaya" size="sm" /><Avatar name="Zeynep Kaya" /><Avatar name="Zeynep Kaya" size="lg" /><Avatar name="Zeynep Kaya" size="xl" /></Stack>
+    </Stack>
+  ) },
+  { id: 'progress', group: 'E', title: 'ProgressBar, ProgressRing, StatCard', render: () => (
+    <Stack gap="lg">
+      <Stack direction="horizontal" gap="lg" wrap align="center">
+        <ProgressRing value={859} max={1800} size="lg" label="Kalori" valueText="859 / 1.800 kcal"><Stack gap="0" align="center"><NumberDisplay value={941} variant="numeric-lg" /><Text variant="caption" tone="muted">kcal kaldı</Text></Stack></ProgressRing>
+        <ProgressRing value={6} max={8} label="Su" valueText="6 / 8 bardak" tone="warning" />
+        
+      </Stack>
+      <Stack gap="md">
+        <ProgressBar value={142} max={220} label="Karbonhidrat" valueText="142 / 220 g" tone="carb" showLabel />
+        <ProgressBar value={68} max={120} label="Protein" valueText="68 / 120 g" tone="protein" showLabel />
+        <ProgressBar value={71} max={60} label="Yağ" valueText="71 / 60 g · hedefin üstünde" tone="fat" showLabel />
+        <ProgressBar value={null} label="Fotoğraf yükleniyor" />
+      </Stack>
+      <div style={{ display: 'grid', gap: 'var(--spacing-md)', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, calc(var(--size-sidebar) * 0.75)), 1fr))' }}>
+        <StatCard label="Aktif danışan" value={48} delta={3} deltaIntent="increase-is-good" deltaContext="bu ay" icon="users" />
+        <StatCard label="Onay bekleyen öğün" value={12} delta={-5} deltaIntent="decrease-is-good" deltaContext="dünden" icon="clock" />
+        <StatCard label="Ortalama plana uyum" value={86} unit="%" delta={0} deltaContext="geçen hafta ile aynı" />
+        <StatCard label="Kilo" value={null} visibility="hidden" />
+        <StatCard label="Yeni tahlil" value={null} />
+      </div>
+    </Stack>
+  ) },
+  { id: 'table', group: 'E', title: 'DataTable, FilterBar, Pagination', render: () => <TableDemo /> },
+  { id: 'table-states', group: 'E', title: 'DataTable durumları', render: () => (
+    <Stack gap="xl"><TableDemo state="loading" /><TableDemo state="error" />
+      <DataTable caption="Boş" columns={COLS} rows={[]} rowKey={(r) => r.id} empty={{ title: 'Henüz danışan yok', description: 'Davet bağlantısı göndererek ilk danışanını ekle.' }} />
+      <Stack direction="horizontal" gap="sm" wrap><Chip selected>Tahıl</Chip><Chip>Süt ürünleri</Chip><Chip disabled>Kuruyemiş</Chip><Chip icon="leaf" removable selected>Glutensiz</Chip></Stack>
     </Stack>
   ) },
   { id: 'dialog-open', group: 'D', title: 'Dialog (açık)', render: () => <DialogDemo initialOpen /> },

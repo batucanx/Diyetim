@@ -2,7 +2,7 @@ import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import resolved from '@diyetim/tokens/resolved.json' with { type: 'json' };
 
-const STORIES = ['text', 'number', 'icon', 'surface', 'skeleton', 'button', 'textfield', 'select', 'choice', 'tags', 'alerts', 'states', 'tabs', 'shell', 'shell-collapsed', 'mobilenav', 'layers'];
+const STORIES = ['text', 'number', 'icon', 'surface', 'skeleton', 'button', 'textfield', 'select', 'choice', 'tags', 'alerts', 'states', 'tabs', 'shell', 'shell-collapsed', 'mobilenav', 'layers', 'cards', 'progress', 'table', 'table-states'];
 
 async function open(page: Page, story: string, theme = 'light') {
   await page.goto(`/?story=${story}&theme=${theme}`);
@@ -33,6 +33,8 @@ test.describe('%200 metin ölçeği ve dar ekran (320 px): yatay taşma yok', ()
         const doc = document.documentElement;
         const offenders = [...document.querySelectorAll<HTMLElement>('main *')]
           .filter((el) => el.getBoundingClientRect().right > doc.clientWidth + 1 && getComputedStyle(el).position !== 'absolute' && !el.closest('.dy-visually-hidden'))
+          // Ekran okuyucuya açık ama görsel olarak kırpılmış kapsayıcılar (ör. dar ekranda tablo başlığı) görünür taşma değildir.
+          .filter((el) => { for (let p: HTMLElement | null = el; p; p = p.parentElement) { const cs = getComputedStyle(p); if (cs.clip !== 'auto' && cs.clip !== '') return false; } return true; })
           // Bilinçli yatay kaydırma kapsayıcıları (ör. sekme listesi) içindeki öğeler sayfa taşması değildir.
           .filter((el) => { for (let p = el.parentElement; p && p !== doc; p = p.parentElement) { const o = getComputedStyle(p).overflowX; if (o === 'auto' || o === 'scroll') return false; } return true; })
           .map((el) => el.className || el.tagName).slice(0, 5);

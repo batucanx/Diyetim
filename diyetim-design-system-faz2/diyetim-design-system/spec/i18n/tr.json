@@ -61,5 +61,13 @@
   "offline.pending": "{count} değişiklik gönderilmeyi bekliyor",
   "offline.retry": "Şimdi dene",
   "toast.region": "Bildirimler",
-  "select.selectedCount": "{count} seçili"
+  "select.selectedCount": "{count} seçili",
+  "filter.clearAll": "Temizle",
+  "pagination.label": "Sayfalama",
+  "pagination.previous": "Önceki sayfa",
+  "pagination.next": "Sonraki sayfa",
+  "pagination.page": "Sayfa {page}",
+  "table.selectAll": "Tümünü seç",
+  "table.selectRow": "{row} seç",
+  "avatar.more": "{count} kişi daha"
 }
