@@ -59,7 +59,7 @@ class DyPressable extends StatefulWidget {
   final BorderRadius borderRadius;
   final double pressScale;
 
-  /// En küçük dokunma alanı (varsayılan 44 × 44).
+  /// En küçük görsel/dokunma alanı (varsayılan 44 × 44). Android'de dokunma alanı ayrıca en az 48 × 48 dp olur.
   final Size minSize;
   final FocusNode? focusNode;
   final bool autofocus;
@@ -89,6 +89,8 @@ class _DyPressableState extends State<DyPressable> {
       _ => null,
     };
     Widget child = widget.builder(context, s);
+    // Ad verildiyse içerik ikinci kez okunmaz ("Elif Yıldız, Elif"); odak düğümü dışarıda kaldığı için odaklanabilirlik korunur.
+    if (widget.semanticLabel != null) child = ExcludeSemantics(child: child);
     child = AnimatedScale(
       scale: _pressed && _interactive ? widget.pressScale : 1,
       duration: dy.duration(DyDuration.instant),
@@ -99,6 +101,14 @@ class _DyPressableState extends State<DyPressable> {
       foregroundPainter: _focusHighlight ? _FocusRingPainter(dy.colors.focusRing, widget.borderRadius) : null,
       child: ConstrainedBox(constraints: BoxConstraints(minWidth: widget.minSize.width, minHeight: widget.minSize.height), child: Center(widthFactor: 1, heightFactor: 1, child: child)),
     );
+    // Android: dokunma alanı görünmez biçimde 48 dp'ye büyür (Material kılavuzu); görsel boyut ve odak halkası değişmez.
+    // iOS ve web 44 px'te kalır (size.target-min). Bkz. docs/platform-parity.md.
+    if (Theme.of(context).platform == TargetPlatform.android) {
+      child = ConstrainedBox(
+        constraints: const BoxConstraints(minWidth: DySize.targetComfortable, minHeight: DySize.targetComfortable),
+        child: Center(widthFactor: 1, heightFactor: 1, child: child),
+      );
+    }
     return Semantics(
       container: true,
       button: widget.button,

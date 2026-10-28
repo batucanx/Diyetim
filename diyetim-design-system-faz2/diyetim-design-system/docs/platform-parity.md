@@ -22,7 +22,8 @@ Token değişikliği akışı bu fazda gerçekten denendi: `radius.lg` 18 → 20
 - Sayı biçimi tr-TR: `1.842`, `6,3`, `%48`, eksi U+2212 (StatCard değişimi), sayı–birim arası U+00A0. Tabular rakam: Nunito'da `tnum` yok, varsayılan rakamlar 400–800 ağırlıklarda eşit genişlikte (600 birim) — doğrulandı.
 - Baş harfler Türkçe kurallarla (`i → İ`, `ı → I`): `initials()` / `dyInitials()` aynı test vektörleriyle.
 - Hareket azaltma: web'de süreler 0, Flutter'da `context.dy.duration()` 0; belirsiz ilerleme sabit durur.
-- Dokunma hedefi en az 44 px (`size.target-min`).
+- Dokunma hedefi en az 44 px (`size.target-min`). Android'de Flutter dokunma alanını görünmez biçimde 48 dp'ye (`size.target-comfortable`) büyütür; görsel boyut ve odak halkası 44'te kalır (bkz. Bilinçli farklar).
+- Kilitli alan (`locked`) ince `border-subtle` kenarını korur (kilitli butonla aynı): dark temada `surface-sunken` zeminle aynı renktir, kenar olmadan alan şeklini kaybeder.
 
 ## Bilinçli farklar
 
@@ -36,6 +37,7 @@ Token değişikliği akışı bu fazda gerçekten denendi: `radius.lg` 18 → 20
 | FilterBar | Arama + çipler + temizle + canlı sonuç | `DyFilterChips` (yatay kaydırma) + ayrı `DySearchField` | Ekran genişliği |
 | Card etkileşimi | `href` (bağlantı) veya `onClick` | `onTap` | Gezinme platforma göre |
 | ListItem | `href` desteği var | Yok (`onTap`) | Aynı |
+| Dokunma alanı | 44 px | iOS 44 pt · Android 48 dp (görsel 44 kalır; Android'de bileşenler arası boşluk ~4 px artar) | Material/Android erişilebilirlik kılavuzu; karar 28 Ekim 2026 |
 | Chip sayaç | `FilterBar` seçeneğinde | `DyChip.count` | Flutter'da çip tek başına da sayaç taşıyor |
 | Avatar durum noktası | `status` var | Faz 3 | Danışan listesiyle birlikte |
 | Etkileşimli kart içinde ikinci kontrol | Geliştirme modunda konsol uyarısı | Yalnız dokümantasyon kuralı | Flutter'da DOM benzeri denetim yok |

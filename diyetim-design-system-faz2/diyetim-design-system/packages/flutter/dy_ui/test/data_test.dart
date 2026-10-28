@@ -1,3 +1,5 @@
+import 'dart:ui' show Tristate;
+
 import 'package:dy_ui/dy_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -110,7 +112,7 @@ void main() {
     await tester.tap(find.text('Dikkat'));
     await tester.pumpAndSettle();
     expect(values, {'a'});
-    expect(tester.getSemantics(find.bySemanticsLabel('Dikkat, 4')).flagsCollection.isToggled, isTrue);
+    expect(tester.getSemantics(find.bySemanticsLabel('Dikkat, 4')).flagsCollection.isToggled, Tristate.isTrue);
     await tester.tap(find.text('Temizle'));
     await tester.pumpAndSettle();
     expect(values, isEmpty);

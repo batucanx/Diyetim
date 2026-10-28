@@ -21,7 +21,7 @@
 .dy-input:focus-within { border-color: var(--color-focus-ring); background: var(--color-surface); box-shadow: 0 0 0 var(--spacing-xs) var(--color-primary-subtle); }
 .dy-input--invalid, .dy-input--invalid:hover { border-color: var(--color-error); background: var(--color-surface); }
 .dy-input--disabled { opacity: var(--opacity-disabled); }
-.dy-input--locked, .dy-input--locked:hover { background: var(--color-surface-sunken); color: var(--color-text-secondary); border-color: transparent; }
+.dy-input--locked, .dy-input--locked:hover { background: var(--color-surface-sunken); color: var(--color-text-secondary); border-color: var(--color-border-subtle); }
 .dy-input__icon { color: var(--color-text-muted); }
 .dy-input__control { all: unset; flex: 1; min-width: 0; padding: var(--spacing-sm) 0; font: inherit; color: inherit; }
 .dy-input__control::placeholder { color: var(--color-text-muted); opacity: 1; }

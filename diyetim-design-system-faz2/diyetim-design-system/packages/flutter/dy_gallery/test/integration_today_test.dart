@@ -17,7 +17,10 @@ void main() {
           ));
           await tester.pumpAndSettle();
           expect(tester.takeException(), isNull);
+          // 2,0x ölçekte içerik görünür alanın dışına taşabilir; tembel liste kaydırılarak denetlenir.
+          await tester.scrollUntilVisible(find.byType(DyProgressRing), 200);
           expect(find.bySemanticsLabel('Kalori'), findsOneWidget);
+          await tester.scrollUntilVisible(find.text('Onay bekliyor'), 200);
           expect(find.text('Onay bekliyor'), findsOneWidget);
           await tester.scrollUntilVisible(find.text('Gizli'), 200);
           expect(tester.takeException(), isNull);

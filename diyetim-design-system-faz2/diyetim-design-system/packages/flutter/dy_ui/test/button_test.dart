@@ -16,17 +16,17 @@ void main() {
 
   testWidgets('loading: etiket erişilebilir adda kalır, "Yükleniyor" ipucu, tetiklenmez', (tester) async {
     var n = 0;
-    await pumpDy(tester, DyButton(label: 'Kaydet', state: DyComponentState.loading, onPressed: () => n++));
+    await pumpDy(tester, DyButton(label: 'Kaydet', state: DyComponentState.loading, onPressed: () => n++), settle: false);
     await tester.tap(find.byType(DyButton));
     expect(n, 0);
-    expect(tester.getSemantics(find.byType(DyPressable)), matchesSemantics(isButton: true, label: 'Kaydet', hint: 'Yükleniyor', hasEnabledState: true, isFocusable: true));
+    expect(tester.getSemantics(find.byType(DyPressable)), matchesSemantics(isButton: true, label: 'Kaydet', hint: 'Yükleniyor', hasEnabledState: true, isFocusable: true, hasFocusAction: true));
     expect(find.byType(DyProgressSweep), findsOneWidget);
   });
 
   testWidgets('locked: kilit ikonu ve neden', (tester) async {
     await pumpDy(tester, DyButton(label: 'Besin ekle', state: DyComponentState.locked, lockedReason: 'Plan dışı ekleme kapalı', onPressed: () {}));
     expect(find.byWidgetPredicate((w) => w is DyIcon && w.icon == DyIcons.lock), findsOneWidget);
-    expect(tester.getSemantics(find.byType(DyPressable)), matchesSemantics(isButton: true, label: 'Besin ekle', hint: 'Plan dışı ekleme kapalı', hasEnabledState: true, isFocusable: true));
+    expect(tester.getSemantics(find.byType(DyPressable)), matchesSemantics(isButton: true, label: 'Besin ekle', hint: 'Plan dışı ekleme kapalı', hasEnabledState: true, isFocusable: true, hasFocusAction: true));
   });
 
   testWidgets('uzun Türkçe etiket %200 metin ölçeğinde kırpılmaz, taşmaz', (tester) async {
@@ -62,6 +62,7 @@ void main() {
       await expectLater(tester, meetsGuideline(iOSTapTargetGuideline));
       await expectLater(tester, meetsGuideline(labeledTapTargetGuideline));
       await expectLater(tester, meetsGuideline(textContrastGuideline));
+      expectTextContrast(tester);
       handle.dispose();
     }
   });

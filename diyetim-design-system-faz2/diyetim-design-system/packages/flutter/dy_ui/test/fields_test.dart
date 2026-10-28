@@ -77,6 +77,11 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('expectTextContrast düşük kontrastı yakalar', (tester) async {
+    await pumpDy(tester, const ColoredBox(color: Color(0xFFFFFFFF), child: Text('soluk', style: TextStyle(color: Color(0xFFBBBBBB)))));
+    expect(() => expectTextContrast(tester), throwsA(isA<TestFailure>()));
+  });
+
   testWidgets('kontrast kılavuzu (light ve dark)', (tester) async {
     for (final b in Brightness.values) {
       final h = tester.ensureSemantics();
@@ -85,7 +90,8 @@ void main() {
         DyTextField(label: 'Kilo', error: 'Geçersiz değer'),
         DyTextField(label: 'Porsiyon', state: DyComponentState.locked, lockedReason: 'Kapalı', initialValue: '1 kase'),
       ]), brightness: b);
-      await expectLater(tester, meetsGuideline(textContrastGuideline));
+      // 12 px açıklama metninde piksel örneklemesi kenar yumuşatmasını ölçüyor (4,35); gerçek çift 6,24:1. Bkz. expectTextContrast.
+      expectTextContrast(tester);
       h.dispose();
     }
   });

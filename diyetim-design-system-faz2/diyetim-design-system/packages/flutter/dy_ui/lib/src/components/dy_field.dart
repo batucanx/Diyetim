@@ -99,7 +99,8 @@ class DyInputFrame extends StatelessWidget {
     final c = dy.colors;
     final locked = state == DyComponentState.locked;
     final bg = locked ? c.surfaceSunken : (focused || invalid) ? c.surface : c.surfaceSecondary;
-    final border = invalid ? c.error : focused ? c.focusRing : const Color(0x00000000);
+    // Kilitli alan çerçeveyi kilitli butonla aynı ince kenarla korur: dark temada surface-sunken zeminle aynıdır.
+    final border = invalid ? c.error : focused ? c.focusRing : locked ? c.borderSubtle : const Color(0x00000000);
     return Opacity(
       opacity: state == DyComponentState.disabled ? DyOpacity.disabled : 1,
       child: AnimatedContainer(

@@ -16,3 +16,5 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  dy_tokens:
+    path: ../dy_tokens

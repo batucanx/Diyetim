@@ -1,5 +1,6 @@
 import 'package:dy_ui/dy_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -111,7 +112,7 @@ void main() {
       await tab(tester);
       await tester.sendKeyEvent(LogicalKeyboardKey.enter);
       expect(n, 0);
-      expect(tester.getSemantics(find.byType(DyPressable)), matchesSemantics(isButton: true, label: 'Besin ekle', hint: 'Diyetisyenin kapattı', hasEnabledState: true, isFocusable: true, isFocused: true));
+      expect(tester.getSemantics(find.byType(DyPressable)), matchesSemantics(isButton: true, label: 'Besin ekle', hint: 'Diyetisyenin kapattı', hasEnabledState: true, isFocusable: true, hasFocusAction: true, isFocused: true));
     });
     testWidgets('klavye odağında odak halkası çizilir', (tester) async {
       await pumpDy(tester, DyPressable(onPressed: () {}, builder: (_, __) => const Text('Bas')));
@@ -127,5 +128,29 @@ void main() {
       expect(find.byType(DySkeleton), findsOneWidget);
       expect(tester.hasRunningAnimations, isFalse);
     });
+  });
+
+  for (final (platform, hit) in [(TargetPlatform.android, DySize.targetComfortable), (TargetPlatform.iOS, DySize.targetMin)]) {
+    testWidgets('DyPressable dokunma alanı ${platform.name}: ${hit.toInt()}, görsel 44 kalır', (tester) async {
+      var taps = 0;
+      await pumpDy(tester, Builder(builder: (context) => Theme(
+            data: Theme.of(context).copyWith(platform: platform),
+            child: Align(alignment: Alignment.topLeft, child: DyIconButton(icon: DyIcons.bell, label: 'Bildirimler', onPressed: () => taps++)),
+          )));
+      final pressable = tester.getRect(find.byType(DyPressable));
+      expect(pressable.size, Size(hit, hit));
+      // Odak halkası katmanı görsel kenarı izler: iki platformda da 44 × 44.
+      expect(tester.getSize(find.descendant(of: find.byType(DyPressable), matching: find.byType(CustomPaint)).first), const Size(DySize.targetMin, DySize.targetMin));
+      // Görsel kenarın 1 px dışına (yalnız Android'de alan içinde) dokunma.
+      await tester.tapAt(pressable.topLeft + const Offset(1, 1));
+      expect(taps, 1);
+    });
+  }
+
+  testWidgets('DyTheme: stilsiz metin Nunito ile çizilir (aile adı tek önekli)', (tester) async {
+    await pumpDy(tester, const Text('düz metin'));
+    final family = tester.renderObject<RenderParagraph>(find.text('düz metin')).text.style?.fontFamily;
+    expect(family, DyTypeScale.compact(DyTextStyle.body).fontFamily);
+    expect(family, 'packages/${DyTypeScale.fontPackage}/${DyTypeScale.fontFamily}');
   });
 }

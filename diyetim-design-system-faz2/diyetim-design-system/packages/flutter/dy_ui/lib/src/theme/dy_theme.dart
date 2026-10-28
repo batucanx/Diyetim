@@ -31,14 +31,15 @@ abstract final class DyTheme {
       shadow: const Color(0xFF000000),
       scrim: c.scrim,
     );
-    final base = DyTypeScale.compact(DyTextStyle.body);
     return ThemeData(
       useMaterial3: true,
       brightness: brightness,
       colorScheme: scheme,
       scaffoldBackgroundColor: c.background,
       canvasColor: c.background,
-      fontFamily: base.fontFamily,
+      // Ham aile adı: ThemeData `packages/dy_tokens/` önekini kendisi ekler. TextStyle.fontFamily zaten
+      // önekli olduğundan oradan okumak adı ikiye katlıyor ve stilsiz metinler sistem fontuna düşüyordu.
+      fontFamily: DyTypeScale.fontFamily,
       package: DyTypeScale.fontPackage,
       splashFactory: NoSplash.splashFactory,
       highlightColor: const Color(0x00000000),

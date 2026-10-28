@@ -63,9 +63,16 @@ void main() {
   });
 
   testWidgets('LoadingRegion: iskelet → içerik', (tester) async {
-    await pumpDy(tester, const DyLoadingRegion(loading: true, label: 'Öğünler', skeleton: DySkeleton(shape: DySkeletonShape.text, lines: 2), child: Text('İçerik')));
+    const region = DyLoadingRegion(loading: true, label: 'Öğünler', skeleton: DySkeleton(shape: DySkeletonShape.text, lines: 2), child: Text('İçerik'));
+    await pumpDy(tester, region, settle: false);
     expect(find.byType(DySkeleton), findsOneWidget);
     expect(find.bySemanticsLabel(RegExp('Öğünler: Yükleniyor')), findsOneWidget);
+    expect(tester.hasRunningAnimations, isTrue, reason: 'parıltı çalışır');
+  });
+
+  testWidgets('LoadingRegion: hareketi azalt açıkken parıltı durur', (tester) async {
+    await pumpDy(tester, const DyLoadingRegion(loading: true, label: 'Öğünler', skeleton: DySkeleton(), child: Text('İçerik')), disableAnimations: true);
+    expect(tester.hasRunningAnimations, isFalse);
   });
 
   testWidgets('EmptyState %200 ölçekte taşmaz; kontrast kılavuzu', (tester) async {
@@ -78,6 +85,7 @@ void main() {
       ]), brightness: b, textScale: 2.0, width: 320, height: 2000);
       expect(tester.takeException(), isNull);
       await expectLater(tester, meetsGuideline(textContrastGuideline));
+      expectTextContrast(tester);
       h.dispose();
     }
   });

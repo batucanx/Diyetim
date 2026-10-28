@@ -12,7 +12,7 @@ void main() {
     await tester.tap(find.text('Hatırlatma al'));
     await tester.pump();
     expect(v, isTrue);
-    expect(tester.getSemantics(find.byType(DyPressable)), matchesSemantics(label: 'Hatırlatma al', hasCheckedState: true, isChecked: true, hasEnabledState: true, isEnabled: true, isFocusable: true, hasTapAction: true));
+    expect(tester.getSemantics(find.byType(DyPressable)), matchesSemantics(label: 'Hatırlatma al', hasCheckedState: true, isChecked: true, hasEnabledState: true, isEnabled: true, isFocusable: true, hasFocusAction: true, hasTapAction: true));
   });
 
   testWidgets('Checkbox locked değişmez', (tester) async {
@@ -122,6 +122,7 @@ void main() {
       ]), brightness: b);
       await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
       await expectLater(tester, meetsGuideline(textContrastGuideline));
+      expectTextContrast(tester);
       h.dispose();
     }
   });
