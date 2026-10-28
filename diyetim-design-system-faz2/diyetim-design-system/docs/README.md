@@ -11,6 +11,7 @@
 | [Seçim kontrolleri](components/Choice.md) | Checkbox, RadioGroup, Switch, SegmentedControl |
 | [Navigasyon ve katmanlar](components/Navigation.md) | AppBar, TopBar, Sidebar, BottomNavigation, Tabs, Breadcrumb, Dialog, ConfirmDialog, BottomSheet, Popover, Menu |
 | [Durum ve geri bildirim](components/Feedback.md) | Tag, StatusTag, SourceTag, Badge, Tooltip, Alert, Banner, Toast, EmptyState, ErrorState, OfflineState, LoadingRegion |
+| [Veri sunumu](components/Data.md) | Card, ListItem, Avatar, AvatarGroup, ProgressBar, ProgressRing, StatCard, Chip, FilterBar / FilterChips, DataTable, Pagination |
 
 Komutlar (depo kökünde):
 
@@ -21,4 +22,6 @@ pnpm test                # tokens:check + token testleri + typecheck + web birim
 pnpm test:visual         # Playwright: görsel referanslar, axe, %200 ölçek, odak, hareket
 cd packages/flutter/dy_ui && flutter test            # widget ve semantik testleri
 flutter test --update-goldens --tags golden          # ilk kurulumda golden referansları
+cd ../dy_gallery && flutter test                     # Bugün entegrasyon denetimi
+flutter run -t lib/main.dart                         # Widgetbook kataloğu
 ```
