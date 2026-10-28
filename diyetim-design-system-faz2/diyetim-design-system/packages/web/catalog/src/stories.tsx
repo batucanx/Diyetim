@@ -2,7 +2,9 @@ import { useState, type ReactNode } from 'react';
 import {
   Text, NumberDisplay, Icon, Surface, Stack, Skeleton, Pressable, Button, IconButton, Fab, TextField, SearchField, NumberField,
   Textarea, Select, MultiSelect, Checkbox, RadioGroup, Switch, SegmentedControl, type SelectOption,
+  Tag, StatusTag, SourceTag, Badge, Tooltip, Alert, Banner, ToastProvider, useToast, EmptyState, ErrorState, OfflineState, LoadingRegion,
 } from '@diyetim/ui';
+import { MealStatus, AppointmentStatus, LabValueStatus } from '@diyetim/tokens';
 
 export const LONG = 'Diyetisyenime bugünkü tüm öğünlerimi onay için gönder; ğüşıöç İİ harfleri kırpılmadan görünmeli';
 
@@ -16,7 +18,17 @@ function NumberFieldDemo() {
   return <NumberField label="Gramaj" unit="g" value={v} onChange={setV} min={0} max={1000} step={10} description="Hızlı seçim: 50 · 100 · 150 · 200 g" />;
 }
 
-export interface Story { id: string; group: 'A' | 'B'; title: string; render: () => ReactNode }
+function ToastDemo() {
+  const toast = useToast();
+  return (
+    <Stack direction="horizontal" gap="md" wrap>
+      <Button variant="secondary" onClick={() => toast({ message: 'Öğle öğünü kaydedildi', action: { label: 'Geri al', onAction: () => {} } })}>Snackbar göster</Button>
+      <Button variant="tertiary" onClick={() => toast({ message: 'Plan güncellendi', tone: 'info' })}>Toast göster</Button>
+    </Stack>
+  );
+}
+
+export interface Story { id: string; group: 'A' | 'B' | 'C'; title: string; render: () => ReactNode }
 
 export const stories: Story[] = [
   { id: 'text', group: 'A', title: 'Text', render: () => (
@@ -135,4 +147,33 @@ export const stories: Story[] = [
       <SegmentedControl label="Dönem" options={[{ value: 'd', label: 'Gün' }, { value: 'w', label: 'Hafta' }, { value: 'm', label: 'Ay' }]} defaultValue="w" fullWidth />
     </Stack>
   ) },
+  { id: 'tags', group: 'C', title: 'Tag, StatusTag, SourceTag, Badge', render: () => (
+    <Stack gap="md">
+      <Stack direction="horizontal" gap="sm" wrap>{MealStatus.map((st) => <StatusTag key={st} kind="meal" status={st} />)}</Stack>
+      <Stack direction="horizontal" gap="sm" wrap>{AppointmentStatus.map((st) => <StatusTag key={st} kind="appointment" status={st} />)}</Stack>
+      <Stack direction="horizontal" gap="sm" wrap>{LabValueStatus.map((st) => <StatusTag key={st} kind="lab" status={st} />)}</Stack>
+      <Stack direction="horizontal" gap="lg" wrap><SourceTag source="patient" /><SourceTag source="dietitian" /><SourceTag source="ai" /><SourceTag source="verified" /></Stack>
+      <Stack direction="horizontal" gap="md" align="center"><Badge count={3} label="3 bildirim" /><Badge count={12} label="12 öğün onay bekliyor" tone="error" /><Badge count={240} label="240 bildirim" tone="neutral" /><Tag tone="info" icon="info">{LONG}</Tag></Stack>
+    </Stack>
+  ) },
+  { id: 'alerts', group: 'C', title: 'Alert, Banner, Tooltip', render: () => (
+    <Stack gap="md">
+      <Alert tone="info" title="Diyetisyenin planını güncelledi">Akşam öğününde değişiklik var.</Alert>
+      <Alert tone="success" title="Tahlil yüklendi" onDismiss={() => {}}>12 değer okundu, 1 değer belirsiz.</Alert>
+      <Alert tone="warning" title="Fotoğraf gerekli" actions={<Button size="sm" variant="tertiary" iconStart="camera">Fotoğraf çek</Button>}>Bu öğün fotoğrafsız onaylanamaz.</Alert>
+      <Alert tone="error" title="Kaydedilemedi">Bağlantı koptu. Girdiğin bilgiler kaybolmadı.</Alert>
+      <Banner tone="info" title="Bakım: 02.00–03.00 arası panel salt okunur olacak" />
+      <Stack direction="horizontal" gap="md"><Tooltip content="Öğün fotoğrafı çek"><IconButton icon="camera" label="Kamera" variant="surface" /></Tooltip></Stack>
+    </Stack>
+  ) },
+  { id: 'states', group: 'C', title: 'EmptyState, ErrorState, OfflineState, LoadingRegion', render: () => (
+    <Stack gap="lg">
+      <OfflineState pendingCount={3} onRetry={() => {}} />
+      <Surface radius="lg"><EmptyState size="compact" headingLevel={3} title="Bugün için öğün yok" description="Diyetisyenin henüz bugünün planını yayınlamadı. Plan dışı besin ekleyebilirsin." action={<Button iconStart="search">Besin ara</Button>} /></Surface>
+      <Surface radius="lg"><ErrorState size="compact" headingLevel={3} kind="network" onAction={() => {}} /></Surface>
+      <Surface radius="lg"><ErrorState size="compact" headingLevel={3} kind="permission" onAction={() => {}} /></Surface>
+      <Surface padding="xl"><LoadingRegion loading label="Öğünler" skeleton={<Skeleton shape="text" lines={3} />}><p>İçerik</p></LoadingRegion></Surface>
+    </Stack>
+  ) },
+  { id: 'toast', group: 'C', title: 'Toast ve Snackbar', render: () => <ToastProvider><ToastDemo /></ToastProvider> },
 ];

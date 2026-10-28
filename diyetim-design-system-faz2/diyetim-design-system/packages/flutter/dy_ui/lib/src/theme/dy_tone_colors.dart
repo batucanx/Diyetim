@@ -1,5 +1,7 @@
-import 'package:dy_ui/dy_ui.dart';
+import 'package:dy_tokens/dy_tokens.dart';
 import 'package:flutter/widgets.dart';
+
+import '../generated/dy_icons.g.dart';
 
 /// Bir durum tonunun renkleri: zemin (subtle), metin (strong) ve vurgu (ikon, nokta).
 @immutable

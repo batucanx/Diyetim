@@ -4,6 +4,7 @@ import { Icon } from '../primitives/Icon';
 import { FieldShell, type FieldBaseProps } from './Field';
 import { useControllable } from '../utils/useControllable';
 import { trStartsWith } from '../utils/format';
+import { useStrings } from '../i18n/strings';
 
 export interface SelectOption<V extends string = string> {
   value: V;
@@ -132,8 +133,9 @@ function Listbox<V extends string>({ id, labelId, options, multiple, isSelected,
 function SelectBase<V extends string>(props: ListboxCore<V> & {
   multiple: boolean; isSelected: (v: V) => boolean; choose: (v: V) => void; display: string | null; hiddenValue: string;
 }) {
-  const { label, hideLabel, description, error, success, state = 'enabled', lockedReason, required, options, placeholder = 'Seçin',
-    emptyText = 'Seçenek yok', className, name, multiple, isSelected, choose, display } = props;
+  const t = useStrings();
+  const { label, hideLabel, description, error, success, state = 'enabled', lockedReason, required, options, placeholder = t('common.select'),
+    emptyText = t('common.noOptions'), className, name, multiple, isSelected, choose, display } = props;
   const editable = state === 'enabled';
   const lb = useListbox(options, multiple, isSelected, choose, editable);
   const listId = useId();
@@ -194,10 +196,11 @@ export function Select<V extends string = string>({ value, defaultValue = null, 
 
 /** Çoklu seçim listesi: Enter/Space seçimi değiştirir, liste açık kalır; Escape kapatır. */
 export function MultiSelect<V extends string = string>({ value, defaultValue = [], onChange, summary, ...rest }: MultiSelectProps<V>) {
+  const t = useStrings();
   const [v, setV] = useControllable<V[]>(value, defaultValue, onChange);
   const selected = rest.options.filter((o) => v.includes(o.value));
   const display = selected.length === 0 ? null : summary ? summary(selected)
-    : selected.length <= 2 ? selected.map((o) => o.label).join(', ') : `${selected.length} seçili`;
+    : selected.length <= 2 ? selected.map((o) => o.label).join(', ') : t('select.selectedCount', { count: selected.length });
   const toggle = (x: V) => setV(v.includes(x) ? v.filter((y) => y !== x) : [...v, x]);
   return <SelectBase<V> {...rest} multiple isSelected={(x) => v.includes(x)} choose={toggle} display={display} hiddenValue={v.join(',')} />;
 }

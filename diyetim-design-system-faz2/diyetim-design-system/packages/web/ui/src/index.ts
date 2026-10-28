@@ -17,3 +17,10 @@ export { Switch, type SwitchProps } from './components/Switch';
 export { SegmentedControl, type SegmentedControlProps, type SegmentOption } from './components/SegmentedControl';
 export { formatNumber, parseNumber } from './utils/format';
 export { iconPaths } from './icons/paths';
+// Grup C — durum ve geri bildirim
+export { StringsProvider, useStrings, type StringKey, type Strings } from './i18n/strings';
+export { Tag, StatusTag, SourceTag, Badge, type TagProps, type BadgeProps } from './components/Tag';
+export { Tooltip, type TooltipProps } from './components/Tooltip';
+export { Alert, Banner, type AlertProps } from './components/Alert';
+export { ToastProvider, useToast, type ToastOptions } from './components/Toast';
+export { EmptyState, ErrorState, OfflineState, LoadingRegion, type EmptyStateProps, type ErrorStateProps, type OfflineStateProps, type LoadingRegionProps } from './components/States';

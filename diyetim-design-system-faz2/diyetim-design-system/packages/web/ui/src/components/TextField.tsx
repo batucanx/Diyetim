@@ -4,6 +4,7 @@ import { Icon, type IconName } from '../primitives/Icon';
 import { FieldShell, type FieldBaseProps } from './Field';
 import { useControllable } from '../utils/useControllable';
 import { formatNumber, parseNumber } from '../utils/format';
+import { useStrings } from '../i18n/strings';
 
 type NativeInput = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onChange' | 'size' | 'disabled' | 'required'>;
 
@@ -64,15 +65,16 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function T
 });
 
 export interface SearchFieldProps extends Omit<TextFieldProps, 'iconStart' | 'type' | 'endAdornment' | 'onSubmit'> {
-  /** Temizle butonunun erişilebilir adı. */
+  /** Temizle butonunun erişilebilir adı. Varsayılan: common.clearSearch. */
   clearLabel?: string;
   onSubmit?: (value: string) => void;
 }
 
 /** Arama alanı: Escape ve temizle butonu değeri siler; state=loading sonuçlar gelirken kullanılır. */
 export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(function SearchField(
-  { clearLabel = 'Aramayı temizle', onSubmit, value, defaultValue = '', onChange, onKeyDown, ...rest }, ref,
+  { clearLabel, onSubmit, value, defaultValue = '', onChange, onKeyDown, ...rest }, ref,
 ) {
+  const t = useStrings();
   const [v, setV] = useControllable(value, defaultValue, onChange);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const key = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -92,7 +94,7 @@ export const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(functi
       onChange={setV}
       onKeyDown={key}
       endAdornment={v && rest.state !== 'disabled' && rest.state !== 'locked' ? (
-        <button type="button" className="dy-input__clear" aria-label={clearLabel} onClick={() => { setV(''); inputRef.current?.focus(); }}>
+        <button type="button" className="dy-input__clear" aria-label={clearLabel ?? t('common.clearSearch')} onClick={() => { setV(''); inputRef.current?.focus(); }}>
           <Icon name="x" size="sm" />
         </button>
       ) : null}

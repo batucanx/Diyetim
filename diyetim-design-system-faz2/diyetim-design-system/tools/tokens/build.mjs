@@ -8,6 +8,7 @@ import {
   ROOT, THEMES, loadSources, resolvedColors, resolvedShadows, foundationValue, entries, camel, pascal, hashOf,
 } from './lib.mjs';
 import { buildTsIcons, buildDartIcons } from './icons.mjs';
+import { buildTsStrings, buildDartStrings } from './strings.mjs';
 
 const src = loadSources();
 const colors = resolvedColors(src);
@@ -241,6 +242,8 @@ const outputs = {
   [`${DART}/resolved.json`]: JSON.stringify({ colors }, null, 2) + '\n',
   ['packages/web/ui/src/generated/icons.ts']: buildTsIcons(),
   ['packages/flutter/dy_ui/lib/src/generated/dy_icons.g.dart']: buildDartIcons(),
+  ['packages/web/ui/src/generated/strings.ts']: buildTsStrings(),
+  ['packages/flutter/dy_ui/lib/src/generated/dy_strings.g.dart']: buildDartStrings(),
 };
 
 const check = process.argv.includes('--check');

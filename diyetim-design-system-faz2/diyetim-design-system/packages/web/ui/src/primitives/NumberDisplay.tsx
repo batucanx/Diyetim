@@ -3,6 +3,7 @@ import type { TextStyleToken, TextTone, Visibility } from '@diyetim/tokens';
 import { cx } from '../utils/cx';
 import { formatNumber, NBSP } from '../utils/format';
 import { Icon } from './Icon';
+import { useStrings } from '../i18n/strings';
 
 export interface NumberDisplayProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
   /** Gösterilecek değer. null: değer yok (emptyLabel gösterilir). */
@@ -28,12 +29,13 @@ export function NumberDisplay({
   value, unit, variant = 'numeric-sm', tone = 'primary', fractionDigits = 1, format = 'decimal', label,
   visibility = 'visible', emptyLabel = '—', className, ...rest
 }: NumberDisplayProps) {
+  const t = useStrings();
   const base = cx('dy-num', 'dy-text', `dy-text--${variant}`, `dy-tone--${tone}`, className);
   if (visibility === 'hidden') {
     return (
       <span className={cx(base, 'dy-num--hidden')} {...rest}>
         <Icon name="eyeOff" size="sm" />
-        <span>{label ? <span className="dy-visually-hidden">{label}: </span> : null}Gizli</span>
+        <span>{label ? <span className="dy-visually-hidden">{label}: </span> : null}{t('common.hidden')}</span>
       </span>
     );
   }
@@ -42,7 +44,7 @@ export function NumberDisplay({
       <span className={cx(base, 'dy-num--empty')} {...rest}>
         {label ? <span className="dy-visually-hidden">{label}: </span> : null}
         <span aria-hidden="true">{emptyLabel}</span>
-        <span className="dy-visually-hidden">değer yok</span>
+        <span className="dy-visually-hidden">{t('common.noValue')}</span>
       </span>
     );
   }

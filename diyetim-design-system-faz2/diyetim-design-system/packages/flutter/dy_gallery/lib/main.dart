@@ -99,6 +99,32 @@ class DyGallery extends StatelessWidget {
             WidgetbookUseCase(name: 'Checkbox · Radio · Switch · Segmented', builder: (context) => _pad(const _ChoiceDemo())),
           ]),
         ]),
+        WidgetbookCategory(name: 'C · Durum ve geri bildirim', children: [
+          WidgetbookComponent(name: 'DyTag', useCases: [
+            WidgetbookUseCase(name: 'Durum etiketleri', builder: (context) => _pad(Wrap(spacing: DySpacing.sm, runSpacing: DySpacing.sm, children: [
+                  for (final s in DyMealStatus.values) DyStatusTag(s.style),
+                  for (final s in DyAppointmentStatus.values) DyStatusTag(s.style),
+                  for (final s in DyLabValueStatus.values) DyStatusTag(s.style),
+                  for (final s in DyDataSource.values) DySourceTag(s),
+                  const DyBadge(count: 3, label: '3 bildirim'),
+                  const DyBadge(count: 240, label: '240 bildirim', tone: DyBadgeTone.neutral),
+                ]))),
+          ]),
+          WidgetbookComponent(name: 'DyAlert', useCases: [
+            WidgetbookUseCase(name: 'Tonlar', builder: (context) => _pad(DyStack(children: [
+                  for (final t in DyFeedbackTone.values) DyAlert(title: 'Başlık · ${t.wire}', tone: t, message: 'Açıklama metni.', onDismiss: () {}),
+                  DyTooltip(message: 'Öğün fotoğrafı çek', child: DyIconButton(icon: DyIcons.camera, label: 'Kamera', variant: DyIconButtonVariant.surface, onPressed: () {})),
+                ]))),
+          ]),
+          WidgetbookComponent(name: 'DyToast', useCases: [
+            WidgetbookUseCase(name: 'Snackbar', builder: (context) => _pad(Builder(builder: (context) => DyButton(label: 'Göster', onPressed: () => DyToast.show(context, message: 'Öğle öğünü kaydedildi', actionLabel: 'Geri al', onAction: () {}))))),
+          ]),
+          WidgetbookComponent(name: 'Durum ekranları', useCases: [
+            WidgetbookUseCase(name: 'Boş', builder: (context) => DyEmptyState(title: 'Bugün için öğün yok', description: 'Diyetisyenin henüz bugünün planını yayınlamadı.', action: DyButton(label: 'Besin ara', iconStart: DyIcons.search, onPressed: () {}))),
+            WidgetbookUseCase(name: 'Hata', builder: (context) => DyErrorState(kind: context.knobs.object.dropdown(label: 'Tür', options: DyErrorKind.values, labelBuilder: (k) => k.wire), onAction: () {})),
+            WidgetbookUseCase(name: 'Çevrimdışı', builder: (context) => DyOfflineState(pendingCount: context.knobs.int.slider(label: 'Bekleyen', initialValue: 3, min: 0, max: 20), onRetry: () {})),
+          ]),
+        ]),
       ],
     );
   }

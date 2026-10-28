@@ -18,3 +18,6 @@ export 'src/components/dy_button.dart';
 export 'src/components/dy_field.dart';
 export 'src/components/dy_choice.dart';
 export 'src/components/dy_select.dart';
+export 'src/theme/dy_tone_colors.dart';
+export 'src/i18n_strings.dart';
+export 'src/components/dy_feedback.dart';

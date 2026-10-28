@@ -141,6 +141,26 @@
         "visible",
         "hidden"
       ]
+    },
+    "FeedbackTone": {
+      "doc": "Alert, Banner ve Toast tonu.",
+      "values": [
+        "info",
+        "success",
+        "warning",
+        "error"
+      ]
+    },
+    "ErrorKind": {
+      "doc": "ErrorState türü. Her tür için varsayılan Türkçe başlık, açıklama ve eylem çeviri anahtarıyla gelir.",
+      "values": [
+        "network",
+        "server",
+        "permission",
+        "timeout",
+        "processing",
+        "not-found"
+      ]
     }
   },
   "contrastPairs": [

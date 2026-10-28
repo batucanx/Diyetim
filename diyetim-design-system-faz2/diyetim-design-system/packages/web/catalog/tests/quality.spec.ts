@@ -2,7 +2,7 @@ import { test, expect, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import resolved from '@diyetim/tokens/resolved.json' with { type: 'json' };
 
-const STORIES = ['text', 'number', 'icon', 'surface', 'skeleton', 'button', 'textfield', 'select', 'choice'];
+const STORIES = ['text', 'number', 'icon', 'surface', 'skeleton', 'button', 'textfield', 'select', 'choice', 'tags', 'alerts', 'states'];
 
 async function open(page: Page, story: string, theme = 'light') {
   await page.goto(`/?story=${story}&theme=${theme}`);
@@ -121,4 +121,24 @@ test('hareketi azalt: süreler 0 ms, shimmer durur', async ({ page }) => {
     anim: getComputedStyle(document.querySelector('.dy-skeleton')!, '::after').animationName,
   }));
   expect(r).toEqual({ d: '0ms', anim: 'none' });
+});
+
+test('Snackbar: görünür, Geri al ile kapanır; region canlı', async ({ page }) => {
+  await page.goto('/?story=toast');
+  await page.getByRole('button', { name: 'Snackbar göster' }).click();
+  const region = page.getByRole('region', { name: 'Bildirimler' });
+  await expect(region).toHaveAttribute('aria-live', 'polite');
+  await expect(page.getByRole('status')).toContainText('Öğle öğünü kaydedildi');
+  const r = await new AxeBuilder({ page }).include('.dy-toast-region').analyze();
+  expect(r.violations.map((v) => v.id)).toEqual([]);
+  await page.getByRole('button', { name: /Geri al/ }).click();
+  await expect(page.getByRole('status')).toHaveCount(0);
+});
+
+test('Tooltip klavye odağında görünür ve Escape ile kapanır', async ({ page }) => {
+  await page.goto('/?story=alerts');
+  await page.getByRole('button', { name: 'Kamera' }).focus();
+  await expect(page.getByRole('tooltip')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('tooltip')).toBeHidden();
 });

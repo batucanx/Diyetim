@@ -2,6 +2,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
+import { breakpoints } from '@diyetim/tokens';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const cssFiles = readdirSync(join(root, 'styles')).map((f) => join(root, 'styles', f));
@@ -19,8 +20,11 @@ describe('tasarım kuralı: ham değer yok', () => {
   for (const file of cssFiles) {
     it(`${file.split('/').pop()} yalnızca token değişkenleri kullanır`, () => {
       const css = readFileSync(file, 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+      // Media query'ler CSS değişkeni okuyamaz: piksel değeri yalnızca bir breakpoint token'ına eşitse kabul edilir.
+      const bp = new Set(Object.values(breakpoints).map((v) => `${v}px`));
+      const mediaOk = (l: string) => l.trim().startsWith('@media') && [...l.matchAll(/(\d+)px/g)].every((m) => bp.has(m[0]));
       for (const { name, re } of RAW) {
-        const lines = css.split('\n').filter((l) => re.test(l));
+        const lines = css.split('\n').filter((l) => re.test(l) && !mediaOk(l));
         expect(lines, `${name}`).toEqual([]);
       }
     });
