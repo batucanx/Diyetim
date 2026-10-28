@@ -1,0 +1,77 @@
+/* Text */
+.dy-text { margin: 0; font-family: var(--font-family-primary); overflow-wrap: anywhere; }
+.dy-text--display { font-size: var(--font-size-display); line-height: var(--line-height-display); font-weight: var(--font-weight-display); letter-spacing: var(--letter-spacing-display); }
+.dy-text--h1 { font-size: var(--font-size-h1); line-height: var(--line-height-h1); font-weight: var(--font-weight-h1); letter-spacing: var(--letter-spacing-h1); }
+.dy-text--h2 { font-size: var(--font-size-h2); line-height: var(--line-height-h2); font-weight: var(--font-weight-h2); letter-spacing: var(--letter-spacing-h2); }
+.dy-text--h3 { font-size: var(--font-size-h3); line-height: var(--line-height-h3); font-weight: var(--font-weight-h3); letter-spacing: var(--letter-spacing-h3); }
+.dy-text--h4 { font-size: var(--font-size-h4); line-height: var(--line-height-h4); font-weight: var(--font-weight-h4); letter-spacing: var(--letter-spacing-h4); }
+.dy-text--body-lg { font-size: var(--font-size-body-lg); line-height: var(--line-height-body-lg); font-weight: var(--font-weight-body-lg); }
+.dy-text--body { font-size: var(--font-size-body); line-height: var(--line-height-body); font-weight: var(--font-weight-body); }
+.dy-text--body-sm { font-size: var(--font-size-body-sm); line-height: var(--line-height-body-sm); font-weight: var(--font-weight-body-sm); }
+.dy-text--caption { font-size: var(--font-size-caption); line-height: var(--line-height-caption); font-weight: var(--font-weight-caption); }
+.dy-text--label { font-size: var(--font-size-label); line-height: var(--line-height-label); font-weight: var(--font-weight-label); letter-spacing: var(--letter-spacing-label); }
+.dy-text--numeric-xl { font-size: var(--font-size-numeric-xl); line-height: var(--line-height-numeric-xl); font-weight: var(--font-weight-numeric-xl); letter-spacing: var(--letter-spacing-numeric-xl); }
+.dy-text--numeric-lg { font-size: var(--font-size-numeric-lg); line-height: var(--line-height-numeric-lg); font-weight: var(--font-weight-numeric-lg); }
+.dy-text--numeric-sm { font-size: var(--font-size-numeric-sm); line-height: var(--line-height-numeric-sm); font-weight: var(--font-weight-numeric-sm); }
+.dy-text--numeric-xl, .dy-text--numeric-lg, .dy-text--numeric-sm, .dy-num { font-variant-numeric: tabular-nums; }
+.dy-text--clamp { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+.dy-text--start { text-align: start; } .dy-text--center { text-align: center; } .dy-text--end { text-align: end; }
+.dy-tone--primary { color: var(--color-text-primary); }
+.dy-tone--secondary { color: var(--color-text-secondary); }
+.dy-tone--muted { color: var(--color-text-muted); }
+.dy-tone--disabled { color: var(--color-text-disabled); }
+.dy-tone--on-primary { color: var(--color-text-on-primary); }
+.dy-tone--on-inverse { color: var(--color-text-on-inverse); }
+.dy-tone--link { color: var(--color-text-link); }
+.dy-tone--error { color: var(--color-error-strong); }
+.dy-tone--success { color: var(--color-success-strong); }
+
+/* NumberDisplay */
+.dy-num { display: inline-flex; align-items: baseline; white-space: nowrap; }
+.dy-num__unit { font-size: 0.55em; font-weight: var(--font-weight-semibold); color: var(--color-text-muted); letter-spacing: 0; }
+.dy-num--hidden { align-items: center; gap: var(--spacing-xs); color: var(--color-text-muted); }
+.dy-num--empty { color: var(--color-text-muted); }
+
+/* Icon */
+.dy-icon { flex: none; stroke-width: var(--icon-stroke); display: block; }
+.dy-icon--sm { width: var(--icon-size-sm); height: var(--icon-size-sm); }
+.dy-icon--md { width: var(--icon-size-md); height: var(--icon-size-md); }
+.dy-icon--lg { width: var(--icon-size-lg); height: var(--icon-size-lg); }
+.dy-icon--xl { width: var(--icon-size-xl); height: var(--icon-size-xl); }
+
+/* Surface */
+.dy-surface { min-width: 0; }
+.dy-surface--background { background: var(--color-background); }
+.dy-surface--surface { background: var(--color-surface); }
+.dy-surface--elevated { background: var(--color-surface-elevated); }
+.dy-surface--secondary { background: var(--color-surface-secondary); }
+.dy-surface--sunken { background: var(--color-surface-sunken); }
+.dy-surface--inverse { background: var(--color-surface-inverse); color: var(--color-text-on-inverse); }
+.dy-surface--bordered { border: var(--border-width-hairline) solid var(--color-border-subtle); }
+.dy-elevation--none { box-shadow: var(--shadow-none); }
+.dy-elevation--low { box-shadow: var(--shadow-low); }
+.dy-elevation--medium { box-shadow: var(--shadow-medium); }
+.dy-elevation--high { box-shadow: var(--shadow-high); }
+.dy-elevation--modal { box-shadow: var(--shadow-modal); }
+.dy-radius--xs { border-radius: var(--radius-xs); } .dy-radius--sm { border-radius: var(--radius-sm); }
+.dy-radius--md { border-radius: var(--radius-md); } .dy-radius--lg { border-radius: var(--radius-lg); }
+.dy-radius--xl { border-radius: var(--radius-xl); } .dy-radius--2xl { border-radius: var(--radius-2xl); }
+.dy-radius--full { border-radius: var(--radius-full); }
+
+/* Stack */
+.dy-stack { display: flex; min-width: 0; }
+.dy-stack--vertical { flex-direction: column; }
+.dy-stack--horizontal { flex-direction: row; }
+.dy-stack--wrap { flex-wrap: wrap; }
+.dy-align--start { align-items: flex-start; } .dy-align--center { align-items: center; } .dy-align--end { align-items: flex-end; }
+.dy-align--stretch { align-items: stretch; } .dy-align--baseline { align-items: baseline; }
+.dy-justify--start { justify-content: flex-start; } .dy-justify--center { justify-content: center; }
+.dy-justify--end { justify-content: flex-end; } .dy-justify--between { justify-content: space-between; }
+.dy-gap { display: block; flex: none; }
+
+/* Skeleton */
+.dy-skeleton { position: relative; display: block; overflow: hidden; background: var(--color-surface-secondary); border-radius: var(--radius-sm); }
+.dy-skeleton::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--color-surface), transparent); transform: translateX(-100%); animation: dy-shimmer calc(var(--duration-deliberate) * 2.4) var(--ease-standard) infinite; }
+.dy-skeleton--circle { border-radius: var(--radius-full); }
+.dy-skeleton--text { height: 0.75em; border-radius: var(--radius-xs); }
+.dy-skeleton-lines { display: flex; flex-direction: column; gap: var(--spacing-sm); }

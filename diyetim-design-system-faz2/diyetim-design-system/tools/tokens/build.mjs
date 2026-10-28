@@ -69,18 +69,20 @@ function buildCss() {
 
 // ---------------- TypeScript ----------------
 function buildTs() {
-  const v = (prefix, names) => `{\n${names.map((n) => `  ${JSON.stringify(camel(n))}: 'var(--${prefix}-${n})',`).join('\n')}\n} as const`;
+  // Renk ve gölgede camelCase anahtar (textPrimary); ölçeklerde token adının kendisi (2xl, md).
+  const v = (prefix, names, key = camel) => `{\n${names.map((n) => `  ${JSON.stringify(key(n))}: 'var(--${prefix}-${n})',`).join('\n')}\n} as const`;
+  const same = (n) => n;
   const o = [];
   o.push(`export const color = ${v('color', Object.keys(colors.light))};`);
   o.push(`export type ColorToken = keyof typeof color;`);
   o.push(`export const shadow = ${v('shadow', Object.keys(shadows.light))};`);
-  o.push(`export const spacing = ${v('spacing', entries(src, 'spacing').map(([k]) => k))};`);
+  o.push(`export const spacing = ${v('spacing', entries(src, 'spacing').map(([k]) => k), same)};`);
   o.push(`export type SpacingToken = keyof typeof spacing;`);
-  o.push(`export const radius = ${v('radius', entries(src, 'radius').map(([k]) => k))};`);
+  o.push(`export const radius = ${v('radius', entries(src, 'radius').map(([k]) => k), same)};`);
   o.push(`export type RadiusToken = keyof typeof radius;`);
-  o.push(`export const size = ${v('size', entries(src, 'size').map(([k]) => k))};`);
-  o.push(`export const duration = ${v('duration', Object.keys(F.motion.duration))};`);
-  o.push(`export const ease = ${v('ease', Object.keys(F.motion.ease))};`);
+  o.push(`export const size = ${v('size', entries(src, 'size').map(([k]) => k), same)};`);
+  o.push(`export const duration = ${v('duration', Object.keys(F.motion.duration), same)};`);
+  o.push(`export const ease = ${v('ease', Object.keys(F.motion.ease), same)};`);
   o.push(`export const textStyles = ${JSON.stringify(STYLES)} as const;`);
   o.push(`export type TextStyleName = (typeof textStyles)[number];`);
   o.push(`/** Çözülmüş değerler: testler ve tasarım araçları için. Component'ler var(--…) kullanır. */\nexport const resolvedColors = ${JSON.stringify(colors, null, 2)} as const;`);

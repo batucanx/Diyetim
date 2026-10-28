@@ -1,0 +1,39 @@
+.dy-theme-root,
+:where(html) {
+  font-family: var(--font-family-primary);
+  color: var(--color-text-primary);
+  background: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+.dy-theme-root { min-width: 0; }
+:where([class^="dy-"], [class*=" dy-"]),
+:where([class^="dy-"], [class*=" dy-"])::before,
+:where([class^="dy-"], [class*=" dy-"])::after { box-sizing: border-box; }
+.dy-visually-hidden {
+  position: absolute !important;
+  width: var(--border-width-hairline);
+  height: var(--border-width-hairline);
+  margin: calc(var(--border-width-hairline) * -1);
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+/* Odak halkası: tek tip, her yüzeyde ≥ 3:1. */
+.dy-focus-ring:focus-visible,
+.dy-pressable:focus-visible,
+.dy-choice__input:focus-visible + .dy-check,
+.dy-choice__input:focus-visible + .dy-radio,
+.dy-switch:focus-visible,
+.dy-segmented__item:focus-visible,
+.dy-select__trigger:focus-visible {
+  outline: var(--border-focus-width) solid var(--color-focus-ring);
+  outline-offset: var(--border-focus-offset);
+}
+@keyframes dy-shimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+@keyframes dy-sweep { from { transform: translateX(-120%); } to { transform: translateX(220%); } }
+@media (prefers-reduced-motion: reduce) {
+  .dy-skeleton::after, .dy-button__progress::after, .dy-input__progress::after { animation: none !important; }
+}

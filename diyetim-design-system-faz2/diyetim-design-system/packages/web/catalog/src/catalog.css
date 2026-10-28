@@ -1,0 +1,3 @@
+body { margin: 0; background: var(--color-background); }
+.cat { max-width: var(--size-content-max); margin: 0 auto; padding: var(--spacing-3xl) var(--layout-margin-compact); display: grid; gap: var(--spacing-2xl); }
+.cat-single { padding: var(--spacing-xl) var(--layout-margin-compact); max-width: calc(var(--size-sidebar) * 2.4); }

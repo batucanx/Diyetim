@@ -1,0 +1,31 @@
+name: dy_tokens
+description: Diyetim tasarım token'ları (üretilmiş). Renkler, tipografi, boşluk, radius, gölge, hareket ve ortak durum enum'ları.
+version: 0.2.0
+publish_to: none
+
+environment:
+  sdk: ^3.6.0
+  flutter: ">=3.27.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: fonts/Nunito-Regular.ttf
+          weight: 400
+        - asset: fonts/Nunito-Medium.ttf
+          weight: 500
+        - asset: fonts/Nunito-SemiBold.ttf
+          weight: 600
+        - asset: fonts/Nunito-Bold.ttf
+          weight: 700
+        - asset: fonts/Nunito-ExtraBold.ttf
+          weight: 800

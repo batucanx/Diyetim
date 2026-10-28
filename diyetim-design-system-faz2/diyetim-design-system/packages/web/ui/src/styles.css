@@ -1,0 +1,9 @@
+/* @diyetim/ui — tek stil girişi. Yalnızca @diyetim/tokens değişkenlerini kullanır; ham renk, piksel veya font değeri yoktur
+   (src/test/no-raw-values.test.ts denetler). */
+@import '@diyetim/tokens/tokens.css';
+@import '@diyetim/tokens/fonts.css';
+@import './styles/base.css';
+@import './styles/primitives.css';
+@import './styles/button.css';
+@import './styles/field.css';
+@import './styles/choice.css';
